@@ -16,3 +16,8 @@ class CoreConstants:
     DAY_MONTH_FORMAT = "%d/%m"
     Y_M_D_FORMAT = "%Y-%m-%d"
     Y_M_D_H_M_FORMAT = "%Y-%m-%d %H:%M"
+
+    BFI_MAIN_URL = "https://gw2bossfight.info"
+    BFI_MULTI_LOG_UPLOAD_URL = "https://gw2bossfight.info/api/dps_report/multi_log_upload/"
+
+    CONNECTION_ERROR = "Error connection to gw2bossfight.info"

@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'app.core',
     'app.uploader',
     'app.user',
+    'app.arc_dps_log',
 ]
 
 MIDDLEWARE = [
@@ -130,7 +131,7 @@ LOGGING = {
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'when': 'midnight',
             'interval': 1,
-            'backupCount': 30,
+            'backupCount': 10,
             'filename': FILE_DJANGO,
             'formatter': 'verbose',
         },
@@ -170,6 +171,11 @@ LOGGING = {
             'level': APP_LOG_LVL,
             'propagate': True,
         },
+        'app.arc_dps_log': {
+            'handlers': ('file', 'console'),
+            'level': APP_LOG_LVL,
+            'propagate': True,
+        },
 
         'celery_scripts': {
             'handlers': ('file', 'console'),
@@ -199,6 +205,7 @@ CELERY_IMPORTS = (
     'app.core.tasks',
     'app.uploader.tasks',
     'app.user.tasks',
+    'app.arc_dps_log.tasks',
 )
 
 CELERY_DEFAULT_QUEUE = CoreConstants.DEFAULT_QUEUE
