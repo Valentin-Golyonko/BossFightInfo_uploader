@@ -12,12 +12,19 @@ logger = logging.getLogger(__name__)
 class RequestHandler:
 
     @staticmethod
-    def rq_post(url: str, data: dict) -> Response | None:
+    def rq_post(url: str, data: dict, auth_str: str = None) -> Response | None:
         try:
-            return requests.post(
-                url=url,
-                json=data,
-            )
+            if auth_str is None:
+                return requests.post(
+                    url=url,
+                    json=data,
+                )
+            else:
+                return requests.post(
+                    url=url,
+                    headers={"Authorization": f"Basic {auth_str}"},
+                    json=data,
+                )
         except Exception as ex:
             logger.error(f"rq_post(): requests Ex; {url = }; {ex = }")
             return None

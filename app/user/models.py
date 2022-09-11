@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 class CustomUser(AbstractUser):
     auth_str = models.CharField(
-        max_length=100,
+        max_length=256,
         default="",
     )
 
