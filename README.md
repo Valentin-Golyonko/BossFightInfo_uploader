@@ -7,8 +7,8 @@ site: https://gw2bossfight.info/
 1. You will need to install some software to run the uploader:
    - open command line terminal: type `cmd` in windows search and press Enter
    - install Windows subsystem for linux:
-      - simple command should work [terminal command]: `wsl --install`
-      - if not, follow steps here: https://docs.microsoft.com/en-us/windows/wsl/install
+       - simple command should work [terminal command]: `wsl --install`
+       - if not, follow steps here: https://docs.microsoft.com/en-us/windows/wsl/install-manual
    - install docker desktop: https://www.docker.com/products/docker-desktop/
    - reboot your windows!
     - start Docker desktop

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+    <h3 class="text-center">Logs list</h3>
+    <div class="row align-items-center border-bottom">
+        <div class="col-1">id</div>
+        <div class="col-3">file_name</div>
+        <div class="col-3">log_link</div>
+    </div>
+    <div>
+        {% for log_info in logs_list %}
+            <div class="row">
+                <div class="col-1">{{ log_info.id }}</div>
+                <div class="col-3">{{ log_info.file_name }}</div>
+                <div class="col-3">{{ log_info.log_link }}</div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
