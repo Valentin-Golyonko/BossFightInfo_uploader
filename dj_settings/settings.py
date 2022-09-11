@@ -186,14 +186,12 @@ LOGGING = {
 }
 # <- Logging settings
 
-RABBIT_MQ_NAME = environ_values.get('RABBIT_MQ_NAME')
-RABBIT_MQ_PASS = environ_values.get('RABBIT_MQ_PASS')
-RABBIT_MQ_HOST = environ_values.get('RABBIT_MQ_HOST')
-RABBIT_MQ_PORT = environ_values.get('RABBIT_MQ_PORT')
-RABBIT_MQ_URL = f"amqp://{RABBIT_MQ_NAME}:{RABBIT_MQ_PASS}@{RABBIT_MQ_HOST}:{RABBIT_MQ_PORT}"
+REDIS_HOST = environ_values.get('REDIS_HOST')
+REDIS_PORT = environ_values.get('REDIS_PORT')
+REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}"
 
 # Celery settings ->
-CELERY_BROKER_URL = RABBIT_MQ_URL
+CELERY_BROKER_URL = REDIS_URL
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'

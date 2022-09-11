@@ -1,6 +1,7 @@
 django
 django-extensions
 celery
+redis
 django-celery-beat
 ipython
 requests
