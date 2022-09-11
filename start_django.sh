@@ -1,16 +1,16 @@
 #!/bin/bash
+sudo rm ./logs/gunicorn.log
 touch ./logs/gunicorn.log
-echo "--- 0. Backend starting... ---"
-sleep 1
-python manage.py makemigrations
+echo "--- 1. Cleanup - Done ---"
+
 python manage.py migrate
-echo "--- 1. Migrate done. ---"
-sleep 1
+echo "--- 2. DB update - Done ---"
+
 python manage.py collectstatic --no-input
-echo "--- 2. Collect static done. ---"
-sleep 1
+echo "--- 3. Collect static files - Done ---"
+
 python manage.py runscript celery_scripts.restart_workers
-echo "--- 3. Restart celery workers done. ---"
-sleep 1
+echo "--- 4. Restart workers - Done ---"
+
 gunicorn -c ./dj_settings/gunicorn_config.py
-echo "--- 4. Run django server. ---"
+echo "--- 5. Run server - Done ---"
