@@ -6,8 +6,6 @@ import logging
 import os
 from time import sleep
 
-from django.utils.timezone import now
-
 from app.core.utility_scripts.core_constants import CoreConstants
 from app.core.utility_scripts.util_scripts import time_it
 from dj_settings.settings import DEBUG
@@ -38,7 +36,6 @@ class RestartWorkers:
             queue_name=CoreConstants.DEFAULT_QUEUE,
             concurrency_number=CoreConstants.DEFAULT_CONCURRENCY,
             log_lvl=log_lvl,
-            log_date=now().strftime(CoreConstants.Y_M_D_FORMAT),
             with_beat=True,
         )
         return None
@@ -77,7 +74,6 @@ class RestartWorkers:
                             queue_name: str,
                             concurrency_number: int,
                             log_lvl: str,
-                            log_date: str,
                             with_beat: bool) -> None:
         try:
             os.system(f"celery multi start worker"
@@ -88,7 +84,7 @@ class RestartWorkers:
                       f" --queues={queue_name}"
                       f" --hostname=bfi_{queue_name}@%n"
                       f" --pidfile=./logs/{worker_name}_%n.pid"
-                      f" --logfile=./logs/{worker_name}_%n_{log_date}.log")
+                      f" --logfile=./logs/{worker_name}_%n.log")
         except Exception as ex:
             msg = f"start_celery_worker(): celery multi start worker Ex;" \
                   f" {worker_name = }, {queue_name = }; {ex = }"
