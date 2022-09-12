@@ -186,9 +186,13 @@ LOGGING = {
 }
 # <- Logging settings
 
+REDIS_PASS = environ_values.get('REDIS_PASS')
 REDIS_HOST = environ_values.get('REDIS_HOST')
 REDIS_PORT = environ_values.get('REDIS_PORT')
-REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}"
+if DEBUG:
+    REDIS_URL = f"redis://:{REDIS_PASS}@{REDIS_HOST}:{REDIS_PORT}"
+else:
+    REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}"
 
 # Celery settings ->
 CELERY_BROKER_URL = REDIS_URL

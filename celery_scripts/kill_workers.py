@@ -4,8 +4,9 @@ run:
 """
 import logging
 
+from app.core.utility_scripts.core_constants import CoreConstants
 from celery_scripts.restart_workers import RestartWorkers
-from app.core import CoreConstants
+
 
 logger = logging.getLogger(__name__)
 

@@ -16,7 +16,6 @@ class FindLocalLogs:
 
     @classmethod
     def find_logs(cls) -> list[str]:
-        # cd /d E:\PycharmProjects\BossFightInfo_uploader\user_arcdps_logs
         logs_paths = []
 
         logs_dir = f"{BASE_DIR}/user_arcdps_logs"
@@ -31,9 +30,9 @@ class FindLocalLogs:
         return logs_paths
 
     @staticmethod
-    def list_bosses_dirs(dir_path: str) -> list[str]:
+    def list_bosses_dirs(logs_dir: str) -> list[str]:
         try:
-            stream_all_dirs = os.popen(f"ls {dir_path}/")
+            stream_all_dirs = os.popen(f"ls {logs_dir}/")
             return [
                 i for i in str(stream_all_dirs.read()).split('\n')
                 if i
@@ -43,11 +42,11 @@ class FindLocalLogs:
             return []
 
     @staticmethod
-    def list_logs_files(dir_path: str, boss_dir: str) -> list[str]:
+    def list_logs_files(logs_dir: str, boss_dir: str) -> list[str]:
         if " " in boss_dir:
             boss_dir = f"'{boss_dir}'"
         try:
-            stream_boss = os.popen(f"ls {dir_path}/{boss_dir}/ -p | grep -v /")
+            stream_boss = os.popen(f"ls {logs_dir}/{boss_dir}/ -p | grep -v /")
             return [
                 i for i in str(stream_boss.read()).split('\n')
                 if i and "evtc" in i  # TODO: regex!
