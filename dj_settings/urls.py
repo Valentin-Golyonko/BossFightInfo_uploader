@@ -2,9 +2,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
+    path("", include("app.arc_dps_log.urls")),
+    path("", include("app.user.urls")),
     path("bfi_uploder_admin/", admin.site.urls),
 ]
 

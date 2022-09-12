@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+    <h3 class="text-center mb-4">User settings</h3>
+
+    <form class="row mb-4 g-3" method="post">
+        {% csrf_token %}
+        <div class="col-auto">
+            <label for="username" class="visually-hidden">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Username" name="username">
+        </div>
+        <div class="col-auto">
+            <label for="pass" class="visually-hidden">Password</label>
+            <input type="password" class="form-control" id="pass" placeholder="Password" name="password">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Login to gw2bossfight.info</button>
+        </div>
+    </form>
+
+    <div class="mb-4">
+        <div class="row align-items-center my-1">
+            <div class="col-3">Username:</div>
+            <div class="col-3">{{ user_data.username }}</div>
+        </div>
+        <div class="row align-items-center my-1">
+            <div class="col-3">GW2 account name:</div>
+            <div class="col-3">{{ user_data.gw2_account_name }}</div>
+        </div>
+        <div class="row align-items-center my-1">
+            <div class="col-3">Email confirmed:</div>
+            <div class="col-3">{{ user_data.is_email_confirmed }}</div>
+        </div>
+    </div>
+
+    {% if detail %}
+        <div class="my-4 text-danger">{{ detail }}</div>
+    {% endif %}
+
+    {% if not user_data.is_email_confirmed %}
+        <div class="my-4 text-danger">
+            <h6>You should confirm registration to be able to upload multiple logs!</h6>
+            <p>Visit <a href="https://gw2bossfight.info/api/profile/dudes/{{ user_data.id }}/"
+                        target="_blank">gw2bossfight.info</a> and then <i>repeat</i> login here.</p>
+        </div>
+    {% endif %}
+
+{% endblock %}
