@@ -18,13 +18,17 @@
     </form>
 
     <div class="mb-4">
-        <div class="row align-items-center">
+        <div class="row align-items-center my-1">
             <div class="col-3">Username:</div>
             <div class="col-3">{{ user_data.username }}</div>
         </div>
-            <div class="row align-items-center">
+        <div class="row align-items-center my-1">
             <div class="col-3">GW2 account name:</div>
             <div class="col-3">{{ user_data.gw2_account_name }}</div>
+        </div>
+        <div class="row align-items-center my-1">
+            <div class="col-3">Email confirmed:</div>
+            <div class="col-3">{{ user_data.is_email_confirmed }}</div>
         </div>
     </div>
 
@@ -35,11 +39,8 @@
     {% if not user_data.is_email_confirmed %}
         <div class="my-4 text-danger">
             <h6>You should confirm registration to be able to upload multiple logs!</h6>
-            <p>
-                Visit
-                <a href="https://gw2bossfight.info/api/profile/dudes/{{ user_data.id }}/" target="_blank">gw2bossfight.info</a>
-                and then <i>repeat</i> login here.
-            </p>
+            <p>Visit <a href="https://gw2bossfight.info/api/profile/dudes/{{ user_data.id }}/"
+                        target="_blank">gw2bossfight.info</a> and then <i>repeat</i> login here.</p>
         </div>
     {% endif %}
 

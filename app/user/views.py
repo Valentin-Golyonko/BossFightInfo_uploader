@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
 from http import HTTPStatus
+
+from django.shortcuts import render
+from django.views.generic import TemplateView
+
 from app.user.logic_user.user_login import UserLogin
 
 

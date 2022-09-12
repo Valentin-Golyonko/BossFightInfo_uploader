@@ -5,7 +5,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 
 urlpatterns = [
-    path("", include("app.core.urls")),
+    path("", include("app.arc_dps_log.urls")),
     path("", include("app.user.urls")),
     path("bfi_uploder_admin/", admin.site.urls),
 ]
