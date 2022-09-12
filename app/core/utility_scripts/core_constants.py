@@ -37,6 +37,7 @@ class CoreConstants:
     FILE_UPLOAD_ERROR = "File upload error."
     CREATE_USER_ERROR = "Can't create user for the uploader."
     UPLOADER_LOGIN_FAIL = "Failed to login to the uploader."
+    ONLY_ONE_USER = "Only one user can be created for uploader. Enter your default account."
     """ <- Errors """
 
     LOG_FILE_FORMATS = (
