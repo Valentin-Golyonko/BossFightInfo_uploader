@@ -4,7 +4,7 @@ class CoreConstants:
     DEFAULT_CONCURRENCY = 1
     DEFAULT_TASK_PREFIX = "main"
 
-    DPS_REPORT_URL = "https://dps.report/"
+    DPS_REPORT_URL = "https://dps.report"
 
     MDASH_SYMBOL = "—"
     NA_STR = "n/a"
@@ -21,4 +21,10 @@ class CoreConstants:
     BFI_LOGIN_URL = "https://gw2bossfight.info/api/profile/login/"
     BFI_MULTI_LOG_UPLOAD_URL = "https://gw2bossfight.info/api/dps_report/multi_log_upload/"
 
+    """ Errors -> """
+    OK = "OK"
+    UPLOADER_ERROR = "Internal uploder error."
+    UNKNOWN_ERROR = "Unknown error."
     CONNECTION_ERROR = "Error connection to gw2bossfight.info"
+    FILE_UPLOAD_ERROR = "File upload error."
+    """ <- Errors """

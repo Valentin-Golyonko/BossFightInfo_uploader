@@ -17,8 +17,6 @@ class FindLocalLogs:
     @classmethod
     def find_logs(cls) -> list[str]:
         # cd /d E:\PycharmProjects\BossFightInfo_uploader\user_arcdps_logs
-        Path("").is_file()
-
         logs_paths = []
 
         logs_dir = f"{BASE_DIR}\\user_arcdps_logs"
@@ -54,7 +52,6 @@ class FindLocalLogs:
     def log_file_path(log_path) -> str | None:
         try:
             if Path(log_path).is_file():
-                # Path(log_path).resolve() ???
                 return log_path
         except Exception as ex:
             logger.error(f"log_file_path(): Ex; {ex = }")

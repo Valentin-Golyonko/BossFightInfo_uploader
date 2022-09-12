@@ -1,8 +1,12 @@
+"""
+run:
+    from app.uploader.tasks import task_upload_log
+    task_upload_log.apply_async()
+"""
 import logging
 
 from app.core.utility_scripts.core_constants import CoreConstants
 from celery_scripts.celery_app import celery_app
-
 
 logger = logging.getLogger(__name__)
 
