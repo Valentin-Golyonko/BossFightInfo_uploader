@@ -68,3 +68,11 @@ class CRUDUser:
         except Exception as ex:
             logger.error(f"login_user() Ex; {dude_id = }; {ex = }")
         return False
+
+    @staticmethod
+    def multiple_users_exists() -> int:
+        try:
+            return CustomUser.objects.filter(dude_id__gt=0).count()
+        except Exception as ex:
+            logger.error(f"multiple_users_exists(): count Ex; {ex = }")
+            return 0

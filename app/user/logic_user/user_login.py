@@ -22,21 +22,24 @@ class UserLogin:
         dude_id: int = dude_settings.get("id")
 
         if (user_obj := CRUDUser.find_dude(dude_id)) is None:
+            if CRUDUser.multiple_users_exists() > 0:
+                return {}, CoreConstants.ONLY_ONE_USER
+
             new_user_obj = CRUDUser.create_dude(rq_post, auth_data, dude_settings, dude_id)
 
             if new_user_obj is None:
                 return {}, CoreConstants.CREATE_USER_ERROR
-
-            if not CRUDUser.login_user(request, dude_id):
-                return {}, CoreConstants.UPLOADER_LOGIN_FAIL
         else:
             new_user_obj = CRUDUser.update_user(user_obj, dude_settings)
+
+        if not CRUDUser.login_user(request, dude_id):
+            return {}, CoreConstants.UPLOADER_LOGIN_FAIL
 
         out_data = {
             "username": new_user_obj.username,
             "dude_id": new_user_obj.dude_id,
             "is_email_confirmed": new_user_obj.is_email_confirmed,
-            "gw2_account_name": request.user.gw2_account_name,
+            "gw2_account_name": new_user_obj.gw2_account_name,
         }
         return out_data, CoreConstants.OK
 
@@ -79,3 +82,12 @@ class UserLogin:
             return {}, rs_data.get("error_msg", CoreConstants.UPLOADER_ERROR)
 
         return rs_data.get("data", {}), CoreConstants.OK
+
+    @staticmethod
+    def default_user_data() -> dict:
+        return {
+            "username": CoreConstants.MDASH_SYMBOL,
+            "dude_id": CoreConstants.MDASH_SYMBOL,
+            "is_email_confirmed": CoreConstants.MDASH_SYMBOL,
+            "gw2_account_name": CoreConstants.MDASH_SYMBOL,
+        }

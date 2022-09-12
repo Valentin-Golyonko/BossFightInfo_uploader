@@ -53,6 +53,8 @@ django-timezone-field==5.0
     # via django-celery-beat
 executing==1.0.0
     # via stack-data
+gunicorn==20.1.0
+    # via -r requirements.in
 idna==3.3
     # via requests
 ipython==8.5.0
