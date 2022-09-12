@@ -19,13 +19,13 @@ class FindLocalLogs:
         # cd /d E:\PycharmProjects\BossFightInfo_uploader\user_arcdps_logs
         logs_paths = []
 
-        logs_dir = f"{BASE_DIR}\\user_arcdps_logs"
+        logs_dir = f"{BASE_DIR}/user_arcdps_logs"
 
-        bosses_dirs = cls.list_bosses_dirs(f"{BASE_DIR}\\user_arcdps_logs")
+        bosses_dirs = cls.list_bosses_dirs(logs_dir)
         for boss_dir in bosses_dirs:
             boss_logs_files = cls.list_logs_files(logs_dir, boss_dir)
             for log_file in boss_logs_files:
-                log_path = cls.log_file_path(f"{logs_dir}\\{boss_dir}\\{log_file}")
+                log_path = cls.log_file_path(f"{logs_dir}/{boss_dir}/{log_file}")
                 if log_path is not None:
                     logs_paths.append(log_path)
         return logs_paths
@@ -33,17 +33,25 @@ class FindLocalLogs:
     @staticmethod
     def list_bosses_dirs(dir_path: str) -> list[str]:
         try:
-            stream_all_dirs = os.popen(f"dir {dir_path} /B /AD")
-            return [i for i in str(stream_all_dirs.read()).split('\n') if i]
+            stream_all_dirs = os.popen(f"ls {dir_path}/")
+            return [
+                i for i in str(stream_all_dirs.read()).split('\n')
+                if i
+            ]
         except Exception as ex:
             logger.error(f"list_bosses_dirs(): Ex; {ex = }")
             return []
 
     @staticmethod
     def list_logs_files(dir_path: str, boss_dir: str) -> list[str]:
+        if " " in boss_dir:
+            boss_dir = f"'{boss_dir}'"
         try:
-            stream_boss = os.popen(f"dir {dir_path}\\{boss_dir} /B")
-            return [i for i in str(stream_boss.read()).split('\n') if i and ".zevtc" in i]
+            stream_boss = os.popen(f"ls {dir_path}/{boss_dir}/ -p | grep -v /")
+            return [
+                i for i in str(stream_boss.read()).split('\n')
+                if i and "evtc" in i  # TODO: regex!
+            ]
         except Exception as ex:
             logger.error(f"list_logs_files(): Ex; {ex = }")
             return []
