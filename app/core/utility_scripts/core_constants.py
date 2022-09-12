@@ -25,6 +25,7 @@ class CoreConstants:
     DPS_REPORT_URL = "https://dps.report"
     BFI_MAIN_URL = "https://gw2bossfight.info"
     BFI_LOGIN_URL = "https://gw2bossfight.info/api/profile/login/"
+    BFI_USER_DATA = "https://gw2bossfight.info/api/profile/dudes"
     BFI_MULTI_LOG_UPLOAD_URL = "https://gw2bossfight.info/api/dps_report/multi_log_upload/"
     """ <- URLs """
 
@@ -34,6 +35,8 @@ class CoreConstants:
     UNKNOWN_ERROR = "Unknown error."
     CONNECTION_ERROR = "Error connecting to gw2bossfight.info"
     FILE_UPLOAD_ERROR = "File upload error."
+    CREATE_USER_ERROR = "Can't create user for the uploader."
+    UPLOADER_LOGIN_FAIL = "Failed to login to the uploader."
     """ <- Errors """
 
     LOG_FILE_FORMATS = (
@@ -41,3 +44,6 @@ class CoreConstants:
         "evtc.zip",
         "zevtc",
     )
+
+    GW2_ACCOUNT_LEN = 50
+    GW2_API_KEY_LEN = 200

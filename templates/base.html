@@ -9,13 +9,20 @@
 </head>
 <body>
 <div class="container">
-    {% include "header.html" %}
-    <div class="row align-items-center">
+    <div class="row align-items-center mt-2 mb-4">
         <div class="col-2">
-            <a href="{% url "logs_list" %}" class="btn btn-outline-success">Logs list</a>
+            <a href="{% url "logs_list" %}" class="btn btn-outline-primary">Logs list</a>
         </div>
         <div class="col-2">
-            <a href="{% url "user_settings" %}" class="btn btn-outline-success">User settings</a>
+            <a href="{% url "user_settings" %}" class="btn btn-outline-primary">User settings</a>
+        </div>
+        <div class="col-4 text-center">
+            <a href="https://gw2bossfight.info/" target="_blank"
+               class="btn btn-outline-success">Main sitegw2bossfight.info</a>
+        </div>
+        <div class="col-4 text-center">
+            <a href="https://github.com/Valentin-Golyonko/BossFightInfo_uploader" target="_blank"
+               class="btn btn-outline-success">Uploader GitHub</a>
         </div>
     </div>
     {% block content %}{% endblock content %}

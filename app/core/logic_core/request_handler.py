@@ -12,18 +12,18 @@ logger = logging.getLogger(__name__)
 class RequestHandler:
 
     @staticmethod
-    def rq_post(url: str, data: dict, auth_str: str = None) -> Response | None:
+    def rq_post(url: str, json_data: dict, auth_str: str = None) -> Response | None:
         try:
             if auth_str is None:
                 return requests.post(
                     url=url,
-                    json=data,
+                    json=json_data,
                 )
             else:
                 return requests.post(
                     url=url,
                     headers={"Authorization": f"Basic {auth_str}"},
-                    json=data,
+                    json=json_data,
                 )
         except Exception as ex:
             logger.error(f"rq_post(): requests Ex; {url = }; {ex = }")
@@ -68,4 +68,18 @@ class RequestHandler:
             )
         except Exception as ex:
             logger.error(f"rq_log_file_upload(): Ex; {ex = }")
+            return None
+
+    @staticmethod
+    def rq_get(url: str, auth_str: str = None) -> Response | None:
+        try:
+            if auth_str is None:
+                return requests.get(url=url)
+            else:
+                return requests.get(
+                    url=url,
+                    headers={"Authorization": f"Basic {auth_str}"},
+                )
+        except Exception as ex:
+            logger.error(f"rq_get(): requests Ex; {url = }; {ex = }")
             return None

@@ -15,16 +15,3 @@ class LogsListView(TemplateView):
         ]
         return render(request, self.template_name, {'logs_list': logs_list})
 
-
-class UserSettingsView(TemplateView):
-    template_name = "user_settings.html"
-
-    def get(self, request, *args, **kwargs):
-        user_data = {
-            "id": 1,
-            "username": "some username",
-        }
-        return render(request, self.template_name, user_data)
-
-    def post(self, request, *args, **kwargs):
-        return render(request, self.template_name, {})
