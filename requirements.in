@@ -6,6 +6,7 @@ django-celery-beat
 ipython
 requests
 python-dotenv
+gunicorn
 
 # pip install -U pip setuptools wheel pip-tools --timeout 50
 # pip-compile & pip-sync
