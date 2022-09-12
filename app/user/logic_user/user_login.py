@@ -36,7 +36,7 @@ class UserLogin:
             "username": new_user_obj.username,
             "dude_id": new_user_obj.dude_id,
             "is_email_confirmed": new_user_obj.is_email_confirmed,
-            "gw2_account_name": request.user.gw2_account_name,
+            "gw2_account_name": new_user_obj.gw2_account_name,
         }
         return out_data, CoreConstants.OK
 
