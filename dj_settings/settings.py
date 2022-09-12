@@ -214,10 +214,16 @@ CELERY_DEFAULT_EXCHANGE = CoreConstants.DEFAULT_QUEUE
 CELERY_DEFAULT_ROUTING_KEY = CoreConstants.DEFAULT_QUEUE
 
 CELERY_BEAT_SCHEDULE = {
-    # every 10 minutes
+    # every 15 minutes
+    f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.store_logs": {
+        'task': f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.store_logs",
+        'schedule': crontab(minute="*/15"),
+    },
+
+    # every 30 minutes
     f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.upload_log": {
         'task': f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.upload_log",
-        'schedule': crontab(minute="*/10"),
+        'schedule': crontab(minute="*/30"),
     },
 }
 # <- Celery settings

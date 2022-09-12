@@ -24,6 +24,7 @@ class LocalLog(models.Model):
     )
     dps_report_name = models.CharField(
         max_length=50,
+        default='',
     )
 
     bfi_status = models.PositiveIntegerField(

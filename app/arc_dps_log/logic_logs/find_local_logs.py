@@ -15,8 +15,9 @@ logger = logging.getLogger(__name__)
 class FindLocalLogs:
 
     @classmethod
-    def find_logs(cls) -> list[str]:
+    def find_logs(cls) -> tuple[list[str], list[str]]:
         logs_paths = []
+        logs_names = []
 
         logs_dir = f"{BASE_DIR}/user_arcdps_logs"
 
@@ -27,7 +28,8 @@ class FindLocalLogs:
                 log_path = cls.log_file_path(f"{logs_dir}/{boss_dir}/{log_file}")
                 if log_path is not None:
                     logs_paths.append(log_path)
-        return logs_paths
+                    logs_names.append(log_file)
+        return logs_paths, logs_names
 
     @staticmethod
     def list_bosses_dirs(logs_dir: str) -> list[str]:

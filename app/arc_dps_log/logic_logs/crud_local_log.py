@@ -1,6 +1,4 @@
 import logging
-import os
-from datetime import datetime
 
 from django.db.utils import IntegrityError
 
@@ -11,26 +9,6 @@ logger = logging.getLogger(__name__)
 
 class CRUDLocalLog:
 
-    @classmethod
-    def create_local_log_obj(cls, log_data: dict) -> LocalLog | None:
-        file_name = log_data.get("file_name")
-        file_path = log_data.get("file_path")
-        try:
-            return LocalLog.objects.create(
-                file_name=file_name,
-                file_path=file_path,
-                file_time=cls.file_created_time(file_path),
-                dps_report_status=log_data.get("dps_report_status"),
-                dps_report_name=log_data.get("dps_report_name"),
-                bfi_status=log_data.get("bfi_status"),
-                bfi_fight_id=log_data.get("bfi_fight_id"),
-            )
-        except IntegrityError:
-            logger.warning(f"create_local_log_obj(): IntegrityError; {file_name = }")
-        except Exception as ex:
-            logger.error(f"create_local_log_obj(): create Ex; {file_name = }; {ex = }")
-        return None
-
     @staticmethod
     def log_by_file_name(file_name: str) -> bool:
         try:
@@ -40,9 +18,22 @@ class CRUDLocalLog:
             return False
 
     @staticmethod
-    def file_created_time(file_path: str) -> datetime | None:
+    def list_logs_names() -> list[str]:
         try:
-            return datetime.fromtimestamp(os.path.getmtime(file_path))
+            return LocalLog.objects.values_list(
+                "file_name",
+                flat=True,
+            )
         except Exception as ex:
-            logger.error(f"file_name_to_time(): file time Ex; {ex = }")
-            return None
+            logger.error(f"list_logs_names(): values_list Ex; {ex = }")
+            return []
+
+    @staticmethod
+    def bulk_create_local_logs(logs_to_save: list[LocalLog]) -> None:
+        try:
+            LocalLog.objects.bulk_create(logs_to_save)
+        except IntegrityError:
+            logger.error(f"bulk_create_local_logs(): IntegrityError Ex")
+        except Exception as ex:
+            logger.error(f"bulk_create_local_logs(): bulk_create Ex; {ex = }")
+        return None
