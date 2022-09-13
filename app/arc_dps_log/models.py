@@ -5,12 +5,12 @@ from app.arc_dps_log.logs_constants import LogsConstants
 
 class LocalLog(models.Model):
     file_name = models.CharField(
-        max_length=30,
+        max_length=LogsConstants.FILE_NAME_LEN,
         unique=True,
         db_index=True,
     )
     file_path = models.CharField(
-        max_length=1000,
+        max_length=LogsConstants.FILE_PATH_LEN,
     )
     file_time = models.DateTimeField(
         default=None,
@@ -23,8 +23,9 @@ class LocalLog(models.Model):
         db_index=True,
     )
     dps_report_name = models.CharField(
-        max_length=50,
+        max_length=LogsConstants.DPS_REPORT_NAME_LEN,
         default='',
+        blank=True,
     )
 
     bfi_status = models.PositiveIntegerField(
@@ -36,6 +37,10 @@ class LocalLog(models.Model):
         default=None,
         null=True,
         blank=True,
+    )
+    bfi_notify_code = models.PositiveIntegerField(
+        choices=LogsConstants.LOG_UPLOAD_CODE_CHOICES,
+        default=LogsConstants.NOT_UPLOADED,
     )
 
     def __str__(self):
