@@ -2,7 +2,7 @@
 {% block content %}
     <h3 class="text-center mb-4">Logs list</h3>
 
-    <table class="table table-hover">
+    <table class="table table-hover mb-4">
         <thead>
         <tr>
             <th scope="col">id</th>
@@ -23,25 +23,28 @@
                     <div class="text-start">{{ log_data.file_name }}</div>
                 </td>
                 <td>
-                    <div class="text-start">{{ log_data.dps_report_status_name }}</div>
+                    <span class="badge {% if log_data.dps_report_status == 1 %}text-bg-success{% elif log_data.dps_report_status == 2 %}text-bg-secondary{% else %}text-bg-danger{% endif %}"
+                    >{{ log_data.get_dps_report_status_display }}</span>
                 </td>
                 <td>
                     <div class="text-start">
                         {% if log_data.dps_report_status == 1 %}
                             <a href="https://dps.report/{{ log_data.dps_report_name }}"
-                               target="_blank">{{ log_data.dps_report_name }}</a>
-                        {% endif %}
+                               target="_blank">{{ log_data.dps_report_name | default:"—" }}</a>
+                        {% else %}—{% endif %}
                     </div>
                 </td>
                 <td>
-                    <div class="text-start">{{ log_data.bfi_status_name }}</div>
+                    <span class="badge {% if log_data.bfi_status == 1 %}text-bg-success{% elif log_data.bfi_status == 2 %}text-bg-secondary{% else %}text-bg-danger{% endif %}"
+                          data-bs-title="{{ log_data.get_bfi_notify_code_display }}"
+                          data-bs-toggle="tooltip" data-bs-placement="top">{{ log_data.get_bfi_status_display }}</span>
                 </td>
                 <td>
                     <div class="text-start">
                         {% if log_data.bfi_status == 1 %}
                             <a href="https://gw2bossfight.info/api/encounter/fights/{{ log_data.bfi_fight_id }}/"
                                target="_blank">BFi log</a>
-                        {% endif %}
+                        {% else %}—{% endif %}
                     </div>
                 </td>
             </tr>
@@ -49,4 +52,32 @@
         {% endfor %}
     </table>
 
+    <nav aria-label="pagination">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
+            </li>
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
 {% endblock %}
