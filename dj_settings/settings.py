@@ -186,7 +186,6 @@ LOGGING = {
 }
 # <- Logging settings
 
-REDIS_PASS = environ_values.get('REDIS_PASS')
 REDIS_HOST = environ_values.get('REDIS_HOST')
 REDIS_PORT = environ_values.get('REDIS_PORT')
 REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}"

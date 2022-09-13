@@ -23,6 +23,11 @@ class CustomUser(AbstractUser):
     )
 
     def save(self, *args, **kwargs):
+        if self.dude_id == 0:
+            return None
+        elif CustomUser.objects.filter(dude_id__gt=0).count() > 0:
+            return None
+
         if not self.is_superuser:
             self.is_staff = False
             self.is_superuser = False
