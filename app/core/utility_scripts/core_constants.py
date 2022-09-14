@@ -22,17 +22,6 @@ class CoreConstants:
     Y_M_D_H_M_FORMAT = "%Y-%m-%d %H:%M"
     """ <- Datetime """
 
-    """ URLs -> """
-    DPS_REPORT_URL = "https://dps.report"
-    BFI_MAIN_URL = "https://gw2bossfight.info"
-    BFI_LOGIN_URL = "https://gw2bossfight.info/api/profile/login/"
-    BFI_USER_DATA = "https://gw2bossfight.info/api/profile/dudes"
-    BFI_MULTI_LOG_UPLOAD_URL = (
-        "https://gw2bossfight.info/api/dps_report/multi_log_upload/"
-    )
-    BFI_UPLOADER_SYNC_URL = "https://gw2bossfight.info/api/dps_report/uploader_sync/"
-    """ <- URLs """
-
     """ Errors -> """
     OK = "OK"
     UPLOADER_ERROR = "Internal uploader error."
@@ -46,15 +35,5 @@ class CoreConstants:
     )
     """ <- Errors """
 
-    LOG_FILE_FORMATS = (
-        "evtc",
-        "evtc.zip",
-        "zevtc",
-    )
-
     GW2_ACCOUNT_LEN = 50
     GW2_API_KEY_LEN = 200
-
-    LOG_AGE_LIMIT_DAYS = 180
-    MIN_ELITE_INSIGHTS_VERSION = 2.22
-    RAID_MIN_ELITE_INSIGHTS_VERSION = 2.45

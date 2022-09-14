@@ -1,7 +1,8 @@
-from app.core.utility_scripts.core_constants import CoreConstants
-
-
 class NotifyConstant:
+    LOG_AGE_LIMIT_DAYS = 180
+    MIN_ELITE_INSIGHTS_VERSION = 2.22
+    RAID_MIN_ELITE_INSIGHTS_VERSION = 2.45
+
     """LOG_UPLOAD_CODE ->"""
 
     WRONG_LOG_NAME = "Wrong log name."
@@ -18,14 +19,12 @@ class NotifyConstant:
         f"You are using old Elite Insights version."
         f" Please update it to the latest version ({CURRENT_ELITE_INSIGHTS_VERSION}+)!"
     )
-    LOG_AGE_LIMIT = (
-        f"This log is too old (age more {CoreConstants.LOG_AGE_LIMIT_DAYS} days)!"
-    )
+    LOG_AGE_LIMIT = f"This log is too old (age more {LOG_AGE_LIMIT_DAYS} days)!"
     WVW_LOG = "This system can NOT process WvW logs, sorry!"
     ANONYMOUS_LOG = "This system can NOT process Anonymous logs, sorry!"
     RAID_EI_VERSION = (
         f"Raid log should be parsed with Elite Insights version"
-        f" {CoreConstants.RAID_MIN_ELITE_INSIGHTS_VERSION}+ because of Emboldened mode."
+        f" {RAID_MIN_ELITE_INSIGHTS_VERSION}+ because of Emboldened mode."
     )
     EMBOLDENED_MODE = "This system can NOT process Emboldened mode logs, sorry!"
     BOSS_HEALTH_LIMIT = (

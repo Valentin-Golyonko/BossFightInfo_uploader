@@ -2,6 +2,12 @@ from app.core.notify_constants import NotifyConstant
 
 
 class LogsConstants:
+    LOG_FILE_FORMATS = (
+        "evtc",
+        "evtc.zip",
+        "zevtc",
+    )
+
     UPLOAD_STATUS_OK = 1
     UPLOAD_STATUS_PENDING = 2
     UPLOAD_STATUS_ERROR = 3

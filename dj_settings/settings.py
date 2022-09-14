@@ -50,18 +50,18 @@ ROOT_URLCONF = "dj_settings.urls"
 
 TEMPLATES = [
     {
-    "BACKEND": "django.template.backends.django.DjangoTemplates",
-    "DIRS": [BASE_DIR / "templates"],
-    "APP_DIRS": True,
-    "OPTIONS": {
-        "context_processors": [
-            "django.template.context_processors.debug",
-            "django.template.context_processors.request",
-            "django.contrib.auth.context_processors.auth",
-            "django.contrib.messages.context_processors.messages",
-        ],
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
     },
-},
 ]
 
 WSGI_APPLICATION = "dj_settings.wsgi.application"
@@ -75,8 +75,8 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-    "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-},
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
@@ -209,13 +209,13 @@ CELERY_DEFAULT_ROUTING_KEY = CoreConstants.DEFAULT_QUEUE
 CELERY_BEAT_SCHEDULE = {
     # every 15 minutes
     f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.store_logs": {
-    "task": f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.store_logs",
-    "schedule": crontab(minute="*/15"),
-},
+        "task": f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.store_logs",
+        "schedule": crontab(minute="*/15"),
+    },
     # every 30 minutes
     f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.upload_log": {
-    "task": f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.upload_log",
-    "schedule": crontab(minute="*/30"),
-},
+        "task": f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.upload_log",
+        "schedule": crontab(minute="*/30"),
+    },
 }
 # <- Celery settings

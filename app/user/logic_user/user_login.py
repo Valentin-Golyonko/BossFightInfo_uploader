@@ -2,6 +2,7 @@ import base64
 
 from app.core.logic_core.request_handler import RequestHandler
 from app.core.utility_scripts.core_constants import CoreConstants
+from app.uploader.uploader_constants import UploaderConstants
 from app.user.logic_user.crud_user import CRUDUser
 
 
@@ -50,7 +51,7 @@ class UserLogin:
         password = rq_post.get("password")
 
         response = RequestHandler.rq_post(
-            url=CoreConstants.BFI_LOGIN_URL,
+            url=UploaderConstants.BFI_LOGIN_URL,
             json_data={
                 "username": username,
                 "password": password,
@@ -74,7 +75,7 @@ class UserLogin:
     @staticmethod
     def user_data_bfi(auth_data: dict) -> tuple[dict, str]:
         response = RequestHandler.rq_get(
-            url=f"{CoreConstants.BFI_USER_DATA}/{auth_data.get('dude_id')}/",
+            url=f"{UploaderConstants.BFI_USER_DATA}/{auth_data.get('dude_id')}/",
             auth_str=auth_data.get("auth_str", ""),
         )
         if response is None:

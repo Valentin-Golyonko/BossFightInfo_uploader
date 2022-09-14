@@ -5,6 +5,7 @@ import requests
 from requests import Response
 
 from app.core.utility_scripts.core_constants import CoreConstants
+from app.uploader.uploader_constants import UploaderConstants
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +63,7 @@ class RequestHandler:
     def rq_log_file_upload(file_path: str) -> Response | None:
         try:
             return requests.post(
-                url=f"{CoreConstants.DPS_REPORT_URL}/uploadContent",
+                url=f"{UploaderConstants.DPS_REPORT_URL}/uploadContent",
                 data={
                     "json": 1,
                 },
