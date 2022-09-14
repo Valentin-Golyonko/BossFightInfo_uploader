@@ -1,5 +1,5 @@
 """
-run:
+debug:
     from app.arc_dps_log.logic_logs.find_local_logs import FindLocalLogs
     FindLocalLogs.find_logs()
 """

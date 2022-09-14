@@ -75,11 +75,11 @@ class RestartWorkers:
 
     @staticmethod
     def start_celery_worker(
-            worker_name: str,
-            queue_name: str,
-            concurrency_number: int,
-            log_lvl: str,
-            with_beat: bool,
+        worker_name: str,
+        queue_name: str,
+        concurrency_number: int,
+        log_lvl: str,
+        with_beat: bool,
     ) -> None:
         try:
             os.system(

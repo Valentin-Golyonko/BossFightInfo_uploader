@@ -30,7 +30,20 @@ class CRUDLocalLog:
     @staticmethod
     def bulk_create_local_logs(logs_to_save: list[LocalLog]) -> None:
         try:
-            LocalLog.objects.bulk_create(logs_to_save)
+            LocalLog.objects.bulk_create(
+                logs_to_save,
+                update_conflicts=True,
+                update_fields=[
+                    "file_path",
+                    "file_time",
+                    "dps_report_status",
+                    "dps_report_name",
+                    "bfi_status",
+                    "bfi_fight_id",
+                    "bfi_notify_code",
+                ],
+                unique_fields=["file_name"],
+            )
         except IntegrityError:
             logger.error(f"bulk_create_local_logs(): IntegrityError Ex")
         except Exception as ex:

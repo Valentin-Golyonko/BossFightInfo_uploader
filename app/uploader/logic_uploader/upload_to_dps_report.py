@@ -1,5 +1,5 @@
 """
-run:
+debug:
     from app.uploader.logic_uploader.upload_to_dps_report import UploadToDpsReport
     UploadToDpsReport.upload_file(file_path)
 """

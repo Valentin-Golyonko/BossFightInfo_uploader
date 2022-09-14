@@ -75,7 +75,7 @@ class UserLogin:
     @staticmethod
     def user_data_bfi(auth_data: dict) -> tuple[dict, str]:
         response = RequestHandler.rq_get(
-            url=f"{UploaderConstants.BFI_USER_DATA}/{auth_data.get('dude_id')}/",
+            url=f"{UploaderConstants.BFI_DUDES_URL}/{auth_data.get('dude_id')}/",
             auth_str=auth_data.get("auth_str", ""),
         )
         if response is None:

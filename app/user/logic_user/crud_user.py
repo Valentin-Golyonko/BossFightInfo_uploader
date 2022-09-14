@@ -22,7 +22,7 @@ class CRUDUser:
 
     @staticmethod
     def create_dude(
-            rq_post: dict, auth_data: dict, dude_settings: dict, dude_id: int
+        rq_post: dict, auth_data: dict, dude_settings: dict, dude_id: int
     ) -> CustomUser | None:
         try:
             user_obj = CustomUser(

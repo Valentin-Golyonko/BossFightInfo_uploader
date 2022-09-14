@@ -1,5 +1,5 @@
 """
-run:
+debug:
     from app.arc_dps_log.logic_logs.store_logs import StoreLogs
     StoreLogs.store_logs()
 or:
