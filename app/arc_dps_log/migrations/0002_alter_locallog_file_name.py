@@ -5,8 +5,8 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-    ("arc_dps_log", "0001_initial"),
-]
+        ("arc_dps_log", "0001_initial"),
+    ]
 
     operations = [
         migrations.AlterField(

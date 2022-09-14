@@ -64,11 +64,11 @@ class UserLogin:
             return {}, rs_data.get("error_msg", CoreConstants.UPLOADER_ERROR)
 
         out_data = {
-    "dude_id": rs_data.get("data", {}).get("dude_id"),
-    "auth_str": base64.b64encode(f"{username}:{password}".encode("utf-8")).decode(
-        "utf-8"
-    ),
-}
+            "dude_id": rs_data.get("data", {}).get("dude_id"),
+            "auth_str": base64.b64encode(
+                f"{username}:{password}".encode("utf-8")
+            ).decode("utf-8"),
+        }
         return out_data, CoreConstants.OK
 
     @staticmethod

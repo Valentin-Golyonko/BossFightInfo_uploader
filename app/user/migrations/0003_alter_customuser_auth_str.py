@@ -6,8 +6,8 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-    ("user", "0002_customuser_auth_str"),
-]
+        ("user", "0002_customuser_auth_str"),
+    ]
 
     operations = [
         migrations.AlterField(

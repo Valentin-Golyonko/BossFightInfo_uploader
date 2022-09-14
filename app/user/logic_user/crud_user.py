@@ -74,3 +74,25 @@ class CRUDUser:
         except Exception as ex:
             logger.error(f"multiple_users_exists(): count Ex; {ex = }")
             return 0
+
+    @staticmethod
+    def is_no_users() -> bool:
+        try:
+            return CustomUser.objects.only("id").count() == 0
+        except Exception as ex:
+            logger.error(f"is_no_users(): count Ex; {ex = }")
+            return False
+
+    @classmethod
+    def get_uploader_user(cls) -> CustomUser | None:
+        """Must be only one CustomUser"""
+        try:
+            return CustomUser.objects.get(dude_id__gt=0)
+        except CustomUser.DoesNotExist:
+            if not cls.is_no_users():
+                logger.error(f"get_uploader_user(): DoesNotExist")
+        except CustomUser.MultipleObjectsReturned:
+            logger.error(f"get_uploader_user(): MultipleObjectsReturned")
+        except Exception as ex:
+            logger.error(f"get_uploader_user(): get Ex; {ex = }")
+        return None

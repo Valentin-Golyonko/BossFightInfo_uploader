@@ -10,5 +10,5 @@ gunicorn
 
 # pip install -U pip setuptools wheel pip-tools --timeout 50
 # pip-compile & pip-sync
-# pip install -U black[d] django-debug-toolbar locust coverage selenium
+# pip install -U black django-debug-toolbar locust coverage selenium
 # pip install -r requirements.txt --timeout 50

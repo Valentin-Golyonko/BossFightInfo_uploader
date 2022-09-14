@@ -5,8 +5,8 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-    ("arc_dps_log", "0004_alter_locallog_options_locallog_file_time_and_more"),
-]
+        ("arc_dps_log", "0004_alter_locallog_options_locallog_file_time_and_more"),
+    ]
 
     operations = [
         migrations.AlterField(
