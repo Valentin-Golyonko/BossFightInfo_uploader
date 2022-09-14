@@ -1,0 +1,47 @@
+"""
+debug:
+    from app.uploader.logic_uploader.upload_flow import UploadFlow
+    UploadFlow.upload_local_logs()
+"""
+import logging
+
+from app.arc_dps_log.logic_logs.crud_local_log import CRUDLocalLog
+from app.core.utility_scripts.util_scripts import time_it
+from app.uploader.logic_uploader.upload_to_bfi import UploadToBFi
+from app.uploader.logic_uploader.upload_to_dps_report import UploadToDpsReport
+from app.user.logic_user.crud_user import CRUDUser
+
+logger = logging.getLogger(__name__)
+
+
+class UploadFlow:
+    @staticmethod
+    @time_it
+    def upload_local_logs() -> None:
+        user_obj = CRUDUser.get_uploader_user()
+        if user_obj is None:
+            logger.error(f"upload_local_logs(): no user for upload")
+            return None
+
+        logs_for_dps_report = CRUDLocalLog.list_logs_to_upload(
+            to_dps_report=True,
+            to_bfi=False,
+        )
+        for log_data_1 in logs_for_dps_report:
+            UploadToDpsReport.upload_to_dps_report(
+                file_path=log_data_1.get("file_path"),
+                log_id=log_data_1.get("id"),
+            )
+
+        logs_for_bfi = CRUDLocalLog.list_logs_to_upload(
+            to_dps_report=False,
+            to_bfi=True,
+        )
+        for log_data_2 in logs_for_bfi:
+            UploadToBFi.upload_to_bfi(
+                log_data=log_data_2,
+                log_id=log_data_2.get("id"),
+                auth_str=user_obj.auth_str,
+            )
+
+        return None

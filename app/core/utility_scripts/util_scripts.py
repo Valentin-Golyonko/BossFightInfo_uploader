@@ -2,7 +2,9 @@ import logging
 import os
 from datetime import datetime
 from functools import wraps
+from pathlib import Path
 from time import perf_counter
+from typing import IO
 from zoneinfo import ZoneInfo
 
 from app.arc_dps_log.logs_constants import LogsConstants
@@ -35,3 +37,28 @@ class CheckFile:
         if file_stats.st_size < LogsConstants.MIN_LOG_SIZE:
             return False, modify_time
         return True, modify_time
+
+    @staticmethod
+    def open_file(file_path: str) -> IO | None:
+        try:
+            if not Path(file_path).exists():
+                return None
+        except Exception as ex:
+            logger.error(f"open_file(): Path Ex; {file_path = }; {ex = }")
+            return None
+
+        try:
+            return open(file_path, "rb")
+        except Exception as ex:
+            logger.error(f"open_file(): open Ex; {file_path = }; {ex = }")
+            return None
+
+
+class ConvertDateTime:
+    @staticmethod
+    def dt_to_iso(dt: datetime) -> str | None:
+        try:
+            return dt.isoformat()
+        except Exception as ex:
+            logger.error(f"dt_to_iso(): Ex; {dt = }; {ex = }")
+            return None

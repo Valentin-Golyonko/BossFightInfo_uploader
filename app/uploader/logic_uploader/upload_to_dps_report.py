@@ -1,25 +1,66 @@
 """
 debug:
     from app.uploader.logic_uploader.upload_to_dps_report import UploadToDpsReport
-    UploadToDpsReport.upload_file(file_path)
+    UploadToDpsReport.upload_to_dps_report(file_path, log_id)
 """
 import logging
 
+from app.arc_dps_log.logic_logs.crud_local_log import CRUDLocalLog
+from app.arc_dps_log.logs_constants import LogsConstants
 from app.core.logic_core.request_handler import RequestHandler
-from app.core.utility_scripts.core_constants import CoreConstants
+from app.core.utility_scripts.util_scripts import CheckFile
 
 logger = logging.getLogger(__name__)
 
 
 class UploadToDpsReport:
-    @staticmethod
-    def upload_file(file_path: str) -> tuple[dict, str]:
-        response = RequestHandler.rq_log_file_upload(file_path)
+    @classmethod
+    def upload_to_dps_report(cls, file_path: str, log_id: int) -> None:
+        file_io = CheckFile.open_file(file_path)
+        if file_io is None:
+            CRUDLocalLog.delete_local_log(log_id)
+            return None
+
+        response = RequestHandler.rq_log_file_upload(file_io)
         if response is None:
-            return {}, CoreConstants.FILE_UPLOAD_ERROR
+            logger.error(f"upload_to_dps_report(): response is None; {log_id = }")
+            return None
 
         is_ok, rs_data = RequestHandler.rq_status_and_data(response)
+        data: dict = rs_data.get("data")
         if not is_ok:
-            return {}, rs_data.get("error_msg", CoreConstants.UPLOADER_ERROR)
+            # TODO: check status code; server may be down -> do not change log status
+            error = data.get("error")
+            logger.error(
+                f"upload_to_dps_report(): dps.report error;"
+                f" {log_id = }, {response.status_code = }, {error = }"
+            )
+            dps_report_status = LogsConstants.UPLOAD_STATUS_ERROR
+            dps_report_name = ""
+        else:
+            dps_report_name = cls.permalink_to_report_name(data.get("permalink"))
+            if dps_report_name is None:
+                dps_report_status = LogsConstants.UPLOAD_STATUS_ERROR
+            else:
+                dps_report_status = LogsConstants.UPLOAD_STATUS_OK
 
-        return rs_data.get("data"), CoreConstants.OK
+        CRUDLocalLog.update_log_after_upload(
+            log_id=log_id,
+            from_dps_report=True,
+            from_bfi=False,
+            new_data={
+                "dps_report_status": dps_report_status,
+                "dps_report_name": dps_report_name,
+            },
+        )
+        return None
+
+    @staticmethod
+    def permalink_to_report_name(permalink: str) -> str | None:
+        if permalink is None or not permalink:
+            return None
+        try:
+            return permalink.split("/")[-1]
+        except Exception as ex:
+            logger.error(f"permalink_to_report_name(): Ex; {permalink = }; {ex = }")
+            return None

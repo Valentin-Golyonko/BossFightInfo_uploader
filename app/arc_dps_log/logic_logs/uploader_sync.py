@@ -21,7 +21,7 @@ class UploaderSync:
     def get_data_from_bfi(cls) -> None:
         user_obj = CRUDUser.get_uploader_user()
         if user_obj is None:
-            logger.info(f"get_data_from_bfi(): no user for sync")
+            logger.error(f"get_data_from_bfi(): no user for sync")
             return None
 
         results = cls.recursion_uploader_sync(

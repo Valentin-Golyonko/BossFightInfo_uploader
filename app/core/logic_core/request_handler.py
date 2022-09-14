@@ -1,5 +1,6 @@
 import logging
 from http import HTTPStatus
+from typing import IO
 
 import requests
 from requests import Response
@@ -57,10 +58,10 @@ class RequestHandler:
             case HTTPStatus.OK:
                 return True, {"data": rs_data, "error_msg": CoreConstants.OK}
             case _:
-                return False, {"data": {}, "error_msg": cls.rq_error_msg(rs_data)}
+                return False, {"data": rs_data, "error_msg": cls.rq_error_msg(rs_data)}
 
     @staticmethod
-    def rq_log_file_upload(file_path: str) -> Response | None:
+    def rq_log_file_upload(file_io: IO) -> Response | None:
         try:
             return requests.post(
                 url=f"{UploaderConstants.DPS_REPORT_URL}/uploadContent",
@@ -68,7 +69,7 @@ class RequestHandler:
                     "json": 1,
                 },
                 files={
-                    "file": open(file_path, "rb"),
+                    "file": file_io,
                 },
             )
         except Exception as ex:

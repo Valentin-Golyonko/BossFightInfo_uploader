@@ -212,10 +212,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.store_logs",
         "schedule": crontab(minute="*/15"),
     },
-    # every 30 minutes
+    # every 20 minutes
     f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.upload_log": {
-        "task": f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.upload_log",
-        "schedule": crontab(minute="*/30"),
+        "task": f"{CoreConstants.DEFAULT_TASK_PREFIX}_task.upload_logs",
+        "schedule": crontab(minute="*/20"),
     },
 }
 # <- Celery settings

@@ -4,7 +4,7 @@ debug:
     StoreLogs.store_logs()
 or:
     from app.arc_dps_log.tasks import task_store_logs
-    task_store_logs.apply_async()
+    task_store_logs.s().apply_async()
 """
 import logging
 
@@ -37,8 +37,10 @@ class StoreLogs:
             is_file_ok, modify_time = CheckFile.check_log_stats(file_path)
             if is_file_ok:
                 dps_report_status = LogsConstants.UPLOAD_STATUS_PENDING
+                bfi_status = LogsConstants.UPLOAD_STATUS_PENDING
             else:
                 dps_report_status = LogsConstants.UPLOAD_STATUS_BROKEN
+                bfi_status = LogsConstants.UPLOAD_STATUS_BROKEN
 
             logs_to_save.append(
                 LocalLog(
@@ -46,6 +48,7 @@ class StoreLogs:
                     file_path=file_path,
                     file_time=modify_time,
                     dps_report_status=dps_report_status,
+                    bfi_status=bfi_status,
                 )
             )
 

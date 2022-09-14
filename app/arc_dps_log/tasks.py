@@ -1,7 +1,8 @@
 """
 debug:
-    from app.arc_dps_log.tasks import *
-    task_store_logs.apply_async()
+    from app.arc_dps_log.tasks import task_store_logs, task_uploader_sync
+    task_store_logs.s().apply_async()
+    task_uploader_sync.s().apply_async()
 """
 import logging
 
