@@ -17,6 +17,8 @@ class LogsConstants:
     FILE_PATH_LEN = 1000
     DPS_REPORT_NAME_LEN = 50
 
+    MIN_LOG_SIZE = 1024
+
     """ LOG_UPLOAD_CODE -> """
     NOT_UPLOADED = 1
     WRONG_LOG_NAME = 2
