@@ -12,7 +12,6 @@ logger = logging.getLogger(__name__)
 
 
 class UploadToDpsReport:
-
     @staticmethod
     def upload_file(file_path: str) -> tuple[dict, str]:
         response = RequestHandler.rq_log_file_upload(file_path)

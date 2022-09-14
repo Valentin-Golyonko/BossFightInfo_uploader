@@ -19,7 +19,9 @@ class UserSettingsView(TemplateView):
                 "is_email_confirmed": request.user.is_email_confirmed,
                 "gw2_account_name": request.user.gw2_account_name,
             }
-        return render(request, self.template_name, {"user_data": user_data, "detail": ''})
+        return render(
+            request, self.template_name, {"user_data": user_data, "detail": ""}
+        )
 
     def post(self, request, *args, **kwargs):
         user_data, error_msg = UserLogin.bfi_auth_flow(request)
@@ -27,7 +29,10 @@ class UserSettingsView(TemplateView):
             return render(
                 request=request,
                 template_name=self.template_name,
-                context={"user_data": UserLogin.default_user_data(), "detail": error_msg},
+                context={
+                    "user_data": UserLogin.default_user_data(),
+                    "detail": error_msg,
+                },
                 status=HTTPStatus.BAD_REQUEST,
             )
         return render(

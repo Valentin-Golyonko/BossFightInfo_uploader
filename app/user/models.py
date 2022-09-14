@@ -17,7 +17,7 @@ class CustomUser(AbstractUser):
     is_email_confirmed = models.BooleanField(default=False)
     gw2_account_name = models.CharField(
         max_length=CoreConstants.GW2_ACCOUNT_LEN,
-        default='',
+        default="",
         blank=True,
         verbose_name="GW2 Account",
     )
@@ -38,4 +38,4 @@ class CustomUser(AbstractUser):
         return f"CustomUser [{self.id}]"
 
     class Meta:
-        ordering = ('-id',)
+        ordering = ("-id",)

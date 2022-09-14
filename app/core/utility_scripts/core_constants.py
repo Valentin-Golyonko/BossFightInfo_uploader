@@ -1,5 +1,6 @@
 class CoreConstants:
-    """ Celery -> """
+    """Celery ->"""
+
     DEFAULT_QUEUE = "celery"
     DEFAULT_WORKER_NAME = "main"
     DEFAULT_CONCURRENCY = 1
@@ -27,6 +28,7 @@ class CoreConstants:
     BFI_LOGIN_URL = "https://gw2bossfight.info/api/profile/login/"
     BFI_USER_DATA = "https://gw2bossfight.info/api/profile/dudes"
     BFI_MULTI_LOG_UPLOAD_URL = "https://gw2bossfight.info/api/dps_report/multi_log_upload/"
+    BFI_UPLOADER_SYNC_URL = "https://gw2bossfight.info/api/dps_report/uploader_sync/"
     """ <- URLs """
 
     """ Errors -> """

@@ -24,7 +24,7 @@ class LocalLog(models.Model):
     )
     dps_report_name = models.CharField(
         max_length=LogsConstants.DPS_REPORT_NAME_LEN,
-        default='',
+        default="",
         blank=True,
     )
 

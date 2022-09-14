@@ -8,7 +8,6 @@ logger = logging.getLogger(__name__)
 
 
 class CRUDUser:
-
     @staticmethod
     def find_dude(dude_id: int) -> CustomUser | None:
         try:
@@ -22,10 +21,9 @@ class CRUDUser:
         return None
 
     @staticmethod
-    def create_dude(rq_post: dict,
-                    auth_data: dict,
-                    dude_settings: dict,
-                    dude_id: int) -> CustomUser | None:
+    def create_dude(
+            rq_post: dict, auth_data: dict, dude_settings: dict, dude_id: int
+    ) -> CustomUser | None:
         try:
             user_obj = CustomUser(
                 username=rq_post.get("username"),
@@ -70,7 +68,7 @@ class CRUDUser:
         return False
 
     @staticmethod
-    def multiple_users_exists() -> int:
+    def multiple_users_count() -> int:
         try:
             return CustomUser.objects.filter(dude_id__gt=0).count()
         except Exception as ex:

@@ -10,7 +10,6 @@ logger = logging.getLogger(__name__)
 
 
 class RequestHandler:
-
     @staticmethod
     def rq_post(url: str, json_data: dict, auth_str: str = None) -> Response | None:
         try:
@@ -34,9 +33,11 @@ class RequestHandler:
         try:
             return response.json()
         except Exception as ex:
-            logger.error(f"rq_json(): response.json Ex;"
-                         f" {response.url = }, {response.status_code = };"
-                         f" {ex = }")
+            logger.error(
+                f"rq_json(): response.json Ex;"
+                f" {response.url = }, {response.status_code = };"
+                f" {ex = }"
+            )
             return {}
 
     @staticmethod
@@ -47,6 +48,9 @@ class RequestHandler:
 
     @classmethod
     def rq_status_and_data(cls, response: Response) -> tuple[bool, dict]:
+        if response is None:
+            return False, {"data": {}, "error_msg": CoreConstants.UPLOADER_ERROR}
+
         rs_data = cls.rq_json(response)
         match response.status_code:
             case HTTPStatus.OK:

@@ -8,7 +8,6 @@ logger = logging.getLogger(__name__)
 
 
 class CRUDLocalLog:
-
     @staticmethod
     def log_by_file_name(file_name: str) -> bool:
         try:
