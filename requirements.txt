@@ -45,7 +45,7 @@ django==4.1.1
     #   -r requirements.in
     #   django-celery-beat
     #   django-extensions
-django-celery-beat==2.3.0
+# django-celery-beat==2.3.0
     # via -r requirements.in
 django-extensions==3.2.1
     # via -r requirements.in
