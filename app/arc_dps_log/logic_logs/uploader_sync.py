@@ -10,7 +10,7 @@ from app.arc_dps_log.models import LocalLog
 from app.core.logic_core.request_handler import RequestHandler
 from app.core.utility_scripts.util_scripts import time_it
 from app.uploader.uploader_constants import UploaderConstants
-from app.user.logic_user.crud_user import CRUDUser
+from app.user.logic_user.check_user import CheckUser
 
 logger = logging.getLogger(__name__)
 
@@ -19,14 +19,13 @@ class UploaderSync:
     @classmethod
     @time_it
     def get_data_from_bfi(cls) -> None:
-        user_obj = CRUDUser.get_uploader_user()
-        if user_obj is None:
-            logger.error(f"get_data_from_bfi(): no user for sync")
+        is_user_ok, auth_str = CheckUser.check_user()
+        if not is_user_ok:
             return None
 
         results = cls.recursion_uploader_sync(
             url=UploaderConstants.BFI_UPLOADER_SYNC_URL,
-            auth_str=user_obj.auth_str,
+            auth_str=auth_str,
         )
         if not results:
             return None

@@ -90,7 +90,7 @@ class CRUDUser:
             return CustomUser.objects.get(dude_id__gt=0)
         except CustomUser.DoesNotExist:
             if not cls.is_no_users():
-                logger.error(f"get_uploader_user(): DoesNotExist")
+                logger.error(f"get_uploader_user(): uploader user does not exist!")
         except CustomUser.MultipleObjectsReturned:
             logger.error(f"get_uploader_user(): MultipleObjectsReturned")
         except Exception as ex:

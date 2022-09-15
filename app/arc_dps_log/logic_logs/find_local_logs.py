@@ -7,6 +7,8 @@ import logging
 import os
 from pathlib import Path
 
+from dj_settings.settings import BASE_DIR
+
 logger = logging.getLogger(__name__)
 
 
@@ -43,9 +45,7 @@ class FindLocalLogs:
             boss_dir = f"'{boss_dir}'"
         try:
             stream_boss = os.popen(f"ls {logs_dir}/{boss_dir}/ -p | grep -v /")
-            return [
-                i for i in str(stream_boss.read()).split("\n") if i and "evtc" in i
-            ]  # TODO: regex!
+            return [i for i in str(stream_boss.read()).split("\n") if i and "evtc" in i]
         except Exception as ex:
             logger.error(f"list_logs_files(): Ex; {ex = }")
             return []

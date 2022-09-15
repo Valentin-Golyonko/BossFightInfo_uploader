@@ -28,7 +28,9 @@
         </div>
         <div class="row align-items-center my-1">
             <div class="col-3">Email confirmed:</div>
-            <div class="col-3">{{ user_data.is_email_confirmed }}</div>
+            <div class="col-3 {% if not user_data.is_email_confirmed %}text-danger{% else %}text-success{% endif %}">
+                {{ user_data.is_email_confirmed }}
+            </div>
         </div>
     </div>
 
