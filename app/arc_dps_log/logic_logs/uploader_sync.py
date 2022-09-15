@@ -50,6 +50,7 @@ class UploaderSync:
                     file_time=log_data.get("file_time"),
                     dps_report_status=log_data.get("dps_report_status"),
                     dps_report_name=log_data.get("dps_report_name"),
+                    dps_report_notify_code=log_data.get("dps_report_notify_code"),
                     bfi_status=log_data.get("bfi_status"),
                     bfi_fight_id=log_data.get("bfi_fight_id"),
                     bfi_notify_code=log_data.get("bfi_notify_code"),

@@ -19,7 +19,7 @@ class NotifyConstant:
         f"You are using old Elite Insights version."
         f" Please update it to the latest version ({CURRENT_ELITE_INSIGHTS_VERSION}+)!"
     )
-    LOG_AGE_LIMIT = f"This log is too old (age more {LOG_AGE_LIMIT_DAYS} days)!"
+    LOG_AGE_LIMIT = f"Log is more them {LOG_AGE_LIMIT_DAYS} days old!"
     WVW_LOG = "This system can NOT process WvW logs, sorry!"
     ANONYMOUS_LOG = "This system can NOT process Anonymous logs, sorry!"
     RAID_EI_VERSION = (
@@ -36,4 +36,6 @@ class NotifyConstant:
     DUPLICATE_LOG = "Log with the same parameters exists in the system."
     PROCESSING_ERROR = "Log file processing error."
     LOG_UPLOADED = "Log uploaded."
+    FILE_PATH_TOO_LONG = "File path too long."
+    CANT_UPLOAD = "Can't upload."
     """ <- LOG_UPLOAD_CODE """

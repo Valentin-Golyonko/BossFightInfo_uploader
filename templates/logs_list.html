@@ -24,6 +24,8 @@
                 </td>
                 <td>
                     <span class="badge {% if log_data.dps_report_status == 1 %}text-bg-success{% elif log_data.dps_report_status == 2 %}text-bg-secondary{% else %}text-bg-danger{% endif %}"
+                          data-bs-title="{{ log_data.get_dps_report_notify_code_display }}"
+                          data-bs-toggle="tooltip" data-bs-placement="top"
                     >{{ log_data.get_dps_report_status_display }}</span>
                 </td>
                 <td>
@@ -37,7 +39,8 @@
                 <td>
                     <span class="badge {% if log_data.bfi_status == 1 %}text-bg-success{% elif log_data.bfi_status == 2 %}text-bg-secondary{% else %}text-bg-danger{% endif %}"
                           data-bs-title="{{ log_data.get_bfi_notify_code_display }}"
-                          data-bs-toggle="tooltip" data-bs-placement="top">{{ log_data.get_bfi_status_display }}</span>
+                          data-bs-toggle="tooltip" data-bs-placement="top"
+                    >{{ log_data.get_bfi_status_display }}</span>
                 </td>
                 <td>
                     <div class="text-start">
@@ -48,10 +51,14 @@
                     </div>
                 </td>
             </tr>
-            </tbody>
         {% empty %}
-            <div class="text-center m-4">No data</div>
+            <tr>
+                <td colspan="6">
+                    <div class="text-center m-4">No data</div>
+                </td>
+            </tr>
         {% endfor %}
+        </tbody>
     </table>
 
     {% if logs_list %}

@@ -37,12 +37,15 @@ class UploadToDpsReport:
             )
             dps_report_status = LogsConstants.UPLOAD_STATUS_ERROR
             dps_report_name = ""
+            dps_report_notify_code = LogsConstants.CANT_UPLOAD
         else:
             dps_report_name = cls.permalink_to_report_name(data.get("permalink"))
             if dps_report_name is None:
                 dps_report_status = LogsConstants.UPLOAD_STATUS_ERROR
+                dps_report_notify_code = LogsConstants.CANT_UPLOAD
             else:
                 dps_report_status = LogsConstants.UPLOAD_STATUS_OK
+                dps_report_notify_code = LogsConstants.LOG_UPLOADED
 
         CRUDLocalLog.update_log_after_upload(
             log_id=log_id,
@@ -51,6 +54,7 @@ class UploadToDpsReport:
             new_data={
                 "dps_report_status": dps_report_status,
                 "dps_report_name": dps_report_name,
+                "dps_report_notify_code": dps_report_notify_code,
             },
         )
         return None

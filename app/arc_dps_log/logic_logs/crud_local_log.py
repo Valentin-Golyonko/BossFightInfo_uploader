@@ -76,6 +76,7 @@ class CRUDLocalLog:
                 LocalLog.objects.filter(id=log_id).update(
                     dps_report_status=new_data.get("dps_report_status"),
                     dps_report_name=new_data.get("dps_report_name"),
+                    dps_report_notify_code=new_data.get("dps_report_notify_code"),
                 )
             elif from_bfi:
                 LocalLog.objects.filter(id=log_id).update(

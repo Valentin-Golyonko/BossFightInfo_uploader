@@ -12,18 +12,21 @@ class LogsConstants:
     UPLOAD_STATUS_PENDING = 2
     UPLOAD_STATUS_ERROR = 3
     UPLOAD_STATUS_BROKEN = 4
+    UPLOAD_STATUS_LIMITS = 5
     UPLOAD_STATUS_CHOICES = (
         (UPLOAD_STATUS_OK, "ok"),
         (UPLOAD_STATUS_PENDING, "pending"),
         (UPLOAD_STATUS_ERROR, "error"),
         (UPLOAD_STATUS_BROKEN, "broken file"),
+        (UPLOAD_STATUS_LIMITS, "upload limits"),
     )
 
     FILE_NAME_LEN = 30
-    FILE_PATH_LEN = 1000
+    FILE_PATH_LEN = 150
     DPS_REPORT_NAME_LEN = 50
-
     MIN_LOG_SIZE = 1024
+    LOG_AGE_LIMIT_DAYS = 180
+    CURRENT_UPLOAD_LIMIT = 10  # max 10 logs avery 20 min
 
     """ LOG_UPLOAD_CODE -> """
     NOT_UPLOADED = 1
@@ -44,6 +47,8 @@ class LogsConstants:
     DUPLICATE_LOG = 16
     PROCESSING_ERROR = 17
     LOG_UPLOADED = 18
+    FILE_PATH_TOO_LONG = 19
+    CANT_UPLOAD = 20
     LOG_UPLOAD_CODE_CHOICES = (
         (NOT_UPLOADED, "Not uploaded"),
         (WRONG_LOG_NAME, NotifyConstant.WRONG_LOG_NAME),
@@ -63,5 +68,7 @@ class LogsConstants:
         (DUPLICATE_LOG, NotifyConstant.DUPLICATE_LOG),
         (PROCESSING_ERROR, NotifyConstant.PROCESSING_ERROR),
         (LOG_UPLOADED, NotifyConstant.LOG_UPLOADED),
+        (FILE_PATH_TOO_LONG, NotifyConstant.FILE_PATH_TOO_LONG),
+        (CANT_UPLOAD, NotifyConstant.CANT_UPLOAD),
     )
     """ <- LOG_UPLOAD_CODE """

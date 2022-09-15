@@ -27,6 +27,10 @@ class LocalLog(models.Model):
         default="",
         blank=True,
     )
+    dps_report_notify_code = models.PositiveIntegerField(
+        choices=LogsConstants.LOG_UPLOAD_CODE_CHOICES,
+        default=LogsConstants.NOT_UPLOADED,
+    )
 
     bfi_status = models.PositiveIntegerField(
         choices=LogsConstants.UPLOAD_STATUS_CHOICES,
