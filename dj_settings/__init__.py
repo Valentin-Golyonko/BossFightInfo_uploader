@@ -5,4 +5,4 @@ from __future__ import absolute_import, unicode_literals
 from celery_scripts.celery_app import celery_app
 from dj_settings.settings import *
 
-__all__ = ('celery_app',)
+__all__ = ("celery_app",)

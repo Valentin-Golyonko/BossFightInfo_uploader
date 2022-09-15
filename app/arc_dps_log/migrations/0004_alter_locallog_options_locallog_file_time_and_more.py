@@ -5,29 +5,35 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('arc_dps_log', '0003_alter_locallog_file_name'),
+        ("arc_dps_log", "0003_alter_locallog_file_name"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='locallog',
-            options={'ordering': ('-file_time',)},
+            name="locallog",
+            options={"ordering": ("-file_time",)},
         ),
         migrations.AddField(
-            model_name='locallog',
-            name='file_time',
+            model_name="locallog",
+            name="file_time",
             field=models.DateTimeField(default=None, null=True),
         ),
         migrations.AlterField(
-            model_name='locallog',
-            name='bfi_status',
-            field=models.PositiveIntegerField(choices=[(1, 'ok'), (2, 'pending'), (3, 'error'), (4, 'broken file')],
-                                              db_index=True, default=2),
+            model_name="locallog",
+            name="bfi_status",
+            field=models.PositiveIntegerField(
+                choices=[(1, "ok"), (2, "pending"), (3, "error"), (4, "broken file")],
+                db_index=True,
+                default=2,
+            ),
         ),
         migrations.AlterField(
-            model_name='locallog',
-            name='dps_report_status',
-            field=models.PositiveIntegerField(choices=[(1, 'ok'), (2, 'pending'), (3, 'error'), (4, 'broken file')],
-                                              db_index=True, default=2),
+            model_name="locallog",
+            name="dps_report_status",
+            field=models.PositiveIntegerField(
+                choices=[(1, "ok"), (2, "pending"), (3, "error"), (4, "broken file")],
+                db_index=True,
+                default=2,
+            ),
         ),
     ]

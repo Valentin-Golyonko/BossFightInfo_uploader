@@ -5,13 +5,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('arc_dps_log', '0002_alter_locallog_file_name'),
+        ("arc_dps_log", "0002_alter_locallog_file_name"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='locallog',
-            name='file_name',
+            model_name="locallog",
+            name="file_name",
             field=models.CharField(db_index=True, max_length=30, unique=True),
         ),
     ]

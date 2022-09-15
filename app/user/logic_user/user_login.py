@@ -2,11 +2,11 @@ import base64
 
 from app.core.logic_core.request_handler import RequestHandler
 from app.core.utility_scripts.core_constants import CoreConstants
+from app.uploader.uploader_constants import UploaderConstants
 from app.user.logic_user.crud_user import CRUDUser
 
 
 class UserLogin:
-
     @classmethod
     def bfi_auth_flow(cls, request) -> tuple[dict, str]:
         rq_post = request.POST
@@ -22,10 +22,12 @@ class UserLogin:
         dude_id: int = dude_settings.get("id")
 
         if (user_obj := CRUDUser.find_dude(dude_id)) is None:
-            if CRUDUser.multiple_users_exists() > 0:
+            if CRUDUser.multiple_users_count() > 0:
                 return {}, CoreConstants.ONLY_ONE_USER
 
-            new_user_obj = CRUDUser.create_dude(rq_post, auth_data, dude_settings, dude_id)
+            new_user_obj = CRUDUser.create_dude(
+                rq_post, auth_data, dude_settings, dude_id
+            )
 
             if new_user_obj is None:
                 return {}, CoreConstants.CREATE_USER_ERROR
@@ -49,7 +51,7 @@ class UserLogin:
         password = rq_post.get("password")
 
         response = RequestHandler.rq_post(
-            url=CoreConstants.BFI_LOGIN_URL,
+            url=UploaderConstants.BFI_LOGIN_URL,
             json_data={
                 "username": username,
                 "password": password,
@@ -64,14 +66,16 @@ class UserLogin:
 
         out_data = {
             "dude_id": rs_data.get("data", {}).get("dude_id"),
-            "auth_str": base64.b64encode(f"{username}:{password}".encode("utf-8")).decode("utf-8"),
+            "auth_str": base64.b64encode(
+                f"{username}:{password}".encode("utf-8")
+            ).decode("utf-8"),
         }
         return out_data, CoreConstants.OK
 
     @staticmethod
     def user_data_bfi(auth_data: dict) -> tuple[dict, str]:
         response = RequestHandler.rq_get(
-            url=f"{CoreConstants.BFI_USER_DATA}/{auth_data.get('dude_id')}/",
+            url=f"{UploaderConstants.BFI_DUDES_URL}/{auth_data.get('dude_id')}/",
             auth_str=auth_data.get("auth_str", ""),
         )
         if response is None:

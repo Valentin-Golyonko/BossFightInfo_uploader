@@ -13,5 +13,8 @@ echo "--- 3. Collect static files - Done ---"
 python manage.py runscript celery_scripts.restart_workers
 echo "--- 4. Restart workers - Done ---"
 
+python manage.py runscript help_scripts.on_uploader_start
+echo "--- 5. Run on-start scripts - Done ---"
+
 gunicorn -c ./dj_settings/gunicorn_config.py
-echo "--- 5. Run server - Done ---"
+echo "--- 6. Run server - Done ---"

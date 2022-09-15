@@ -1,16 +1,17 @@
 import logging
 from http import HTTPStatus
+from typing import IO
 
 import requests
 from requests import Response
 
 from app.core.utility_scripts.core_constants import CoreConstants
+from app.uploader.uploader_constants import UploaderConstants
 
 logger = logging.getLogger(__name__)
 
 
 class RequestHandler:
-
     @staticmethod
     def rq_post(url: str, json_data: dict, auth_str: str = None) -> Response | None:
         try:
@@ -34,9 +35,11 @@ class RequestHandler:
         try:
             return response.json()
         except Exception as ex:
-            logger.error(f"rq_json(): response.json Ex;"
-                         f" {response.url = }, {response.status_code = };"
-                         f" {ex = }")
+            logger.error(
+                f"rq_json(): response.json Ex;"
+                f" {response.url = }, {response.status_code = };"
+                f" {ex = }"
+            )
             return {}
 
     @staticmethod
@@ -47,23 +50,26 @@ class RequestHandler:
 
     @classmethod
     def rq_status_and_data(cls, response: Response) -> tuple[bool, dict]:
+        if response is None:
+            return False, {"data": {}, "error_msg": CoreConstants.UPLOADER_ERROR}
+
         rs_data = cls.rq_json(response)
         match response.status_code:
             case HTTPStatus.OK:
                 return True, {"data": rs_data, "error_msg": CoreConstants.OK}
             case _:
-                return False, {"data": {}, "error_msg": cls.rq_error_msg(rs_data)}
+                return False, {"data": rs_data, "error_msg": cls.rq_error_msg(rs_data)}
 
     @staticmethod
-    def rq_log_file_upload(file_path: str) -> Response | None:
+    def rq_log_file_upload(file_io: IO) -> Response | None:
         try:
             return requests.post(
-                url=f"{CoreConstants.DPS_REPORT_URL}/uploadContent",
+                url=f"{UploaderConstants.DPS_REPORT_URL}/uploadContent",
                 data={
                     "json": 1,
                 },
                 files={
-                    "file": open(file_path, "rb"),
+                    "file": file_io,
                 },
             )
         except Exception as ex:

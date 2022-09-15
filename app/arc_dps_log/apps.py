@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class ArcDpsLogConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'app.arc_dps_log'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "app.arc_dps_log"
