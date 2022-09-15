@@ -4,7 +4,10 @@ WORKDIR /BossFightInfo_uploader
 
 RUN pip install -U pip setuptools wheel --timeout 100
 COPY requirements.txt .
-RUN python -V && pip -V && pip install -r requirements.txt --timeout 100
+RUN python -V  \
+    && pip -V \
+    && pip install -U django-celery-beat  \
+    && pip install -r requirements.txt --timeout 100
 
 COPY . .
 
