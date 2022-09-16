@@ -30,9 +30,9 @@
                 </td>
                 <td>
                     <div class="text-start">
-                        {% if log_data.dps_report_status == 1 %}
+                        {% if log_data.dps_report_name %}
                             <a href="https://dps.report/{{ log_data.dps_report_name }}"
-                               target="_blank">{{ log_data.dps_report_name | default:"—" }}</a>
+                               target="_blank">{{ log_data.dps_report_name }}</a>
                         {% else %}—{% endif %}
                     </div>
                 </td>
@@ -44,7 +44,7 @@
                 </td>
                 <td>
                     <div class="text-start">
-                        {% if log_data.bfi_status == 1 %}
+                        {% if log_data.bfi_fight_id %}
                             <a href="https://gw2bossfight.info/api/encounter/fights/{{ log_data.bfi_fight_id }}/"
                                target="_blank">BFi log</a>
                         {% else %}—{% endif %}

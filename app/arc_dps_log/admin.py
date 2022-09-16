@@ -12,6 +12,10 @@ class LocalLogAdmin(admin.ModelAdmin):
         "dps_report_status",
         "bfi_status",
     )
+    search_fields = (
+        "file_name",
+        "dps_report_name",
+    )
 
     def has_delete_permission(self, request, obj=None):
         return False
