@@ -9,6 +9,7 @@ from app.arc_dps_log.logic_logs.crud_local_log import CRUDLocalLog
 from app.arc_dps_log.logs_constants import LogsConstants
 from app.core.logic_core.request_handler import RequestHandler
 from app.core.utility_scripts.util_scripts import CheckFile
+from app.uploader.uploader_constants import UploaderConstants
 
 logger = logging.getLogger(__name__)
 
@@ -29,12 +30,14 @@ class UploadToDpsReport:
         is_ok, rs_data = RequestHandler.rq_status_and_data(response)
         data: dict = rs_data.get("data")
         if not is_ok:
-            # TODO: check status code; server may be down -> do not change log status
-            error = data.get("error")
             logger.error(
                 f"upload_to_dps_report(): dps.report error;"
-                f" {log_id = }, {response.status_code = }, {error = }"
+                f" {log_id = }, {response.status_code = }, {rs_data = }"
             )
+            if response.status_code in UploaderConstants.DPS_REPORT_REPEAT_STATUS:
+                """don't change current status"""
+                return
+
             dps_report_status = LogsConstants.UPLOAD_STATUS_ERROR
             dps_report_name = ""
             dps_report_notify_code = LogsConstants.CANT_UPLOAD
