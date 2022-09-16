@@ -96,7 +96,10 @@ class UploaderSync:
             """all pages done"""
             return True, all_results
         else:
-            is_sync_ok, results = cls.recursion_uploader_sync(next_url, auth_str)
+            _next_url = next_url.replace(
+                "http://127.0.0.1:8000", UploaderConstants.BFI_DOMAIN
+            )
+            is_sync_ok, results = cls.recursion_uploader_sync(_next_url, auth_str)
             if not is_sync_ok:
                 return False, []
             all_results.extend(results)
