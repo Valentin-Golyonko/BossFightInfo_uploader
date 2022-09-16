@@ -32,6 +32,12 @@
                 {{ user_data.is_email_confirmed }}
             </div>
         </div>
+        <div class="row align-items-center my-1">
+            <div class="col-3">Logs synced:</div>
+            <div class="col-3 {% if not user_data.is_synced %}text-danger{% else %}text-success{% endif %}">
+                {{ user_data.is_synced }}
+            </div>
+        </div>
     </div>
 
     {% if detail %}

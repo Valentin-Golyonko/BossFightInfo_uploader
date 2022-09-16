@@ -18,6 +18,7 @@ class UserSettingsView(TemplateView):
                 "dude_id": request.user.dude_id,
                 "is_email_confirmed": request.user.is_email_confirmed,
                 "gw2_account_name": request.user.gw2_account_name,
+                "is_synced": request.user.is_synced,
             }
         return render(
             request, self.template_name, {"user_data": user_data, "detail": ""}

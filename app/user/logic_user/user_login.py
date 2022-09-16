@@ -45,6 +45,7 @@ class UserLogin:
             "dude_id": new_user_obj.dude_id,
             "is_email_confirmed": new_user_obj.is_email_confirmed,
             "gw2_account_name": new_user_obj.gw2_account_name,
+            "is_synced": new_user_obj.is_synced,
         }
         return out_data, CoreConstants.OK
 
@@ -97,4 +98,5 @@ class UserLogin:
             "dude_id": CoreConstants.MDASH_SYMBOL,
             "is_email_confirmed": False,
             "gw2_account_name": CoreConstants.MDASH_SYMBOL,
+            "is_synced": False,
         }

@@ -21,7 +21,7 @@ class CRUDLocalLog:
             return []
 
     @staticmethod
-    def bulk_create_local_logs(logs_to_save: list[LocalLog]) -> None:
+    def bulk_create_local_logs(logs_to_save: list[LocalLog]) -> bool:
         try:
             LocalLog.objects.bulk_create(
                 logs_to_save,
@@ -39,9 +39,12 @@ class CRUDLocalLog:
             )
         except IntegrityError:
             logger.error(f"bulk_create_local_logs(): IntegrityError Ex")
+            return False
         except Exception as ex:
             logger.error(f"bulk_create_local_logs(): bulk_create Ex; {ex = }")
-        return None
+            return False
+        else:
+            return True
 
     @staticmethod
     def list_logs_to_upload(to_dps_report: bool, to_bfi: bool) -> list[dict]:
