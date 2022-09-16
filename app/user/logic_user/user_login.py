@@ -1,5 +1,6 @@
 import base64
 
+from app.arc_dps_log.tasks import task_uploader_sync
 from app.core.logic_core.request_handler import RequestHandler
 from app.core.utility_scripts.core_constants import CoreConstants
 from app.uploader.uploader_constants import UploaderConstants
@@ -36,6 +37,8 @@ class UserLogin:
 
         if not CRUDUser.login_user(request, dude_id):
             return {}, CoreConstants.UPLOADER_LOGIN_FAIL
+
+        task_uploader_sync.s().apply_async()
 
         out_data = {
             "username": new_user_obj.username,
@@ -92,6 +95,6 @@ class UserLogin:
         return {
             "username": CoreConstants.MDASH_SYMBOL,
             "dude_id": CoreConstants.MDASH_SYMBOL,
-            "is_email_confirmed": CoreConstants.MDASH_SYMBOL,
+            "is_email_confirmed": False,
             "gw2_account_name": CoreConstants.MDASH_SYMBOL,
         }
