@@ -11,8 +11,6 @@ RUN python -V  \
 
 COPY . .
 
-VOLUME "C:\bfi_uploader_logs:/BossFightInfo_uploader/logs"
-
 EXPOSE 8000
 
 RUN chmod +x ./start_django.sh
