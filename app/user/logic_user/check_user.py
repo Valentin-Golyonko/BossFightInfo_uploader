@@ -6,7 +6,6 @@ logger = logging.getLogger(__name__)
 
 
 class CheckUser:
-
     @staticmethod
     def check_user() -> tuple[bool, str]:
         user_obj = CRUDUser.get_uploader_user()
