@@ -61,6 +61,7 @@ Main web server https://gw2bossfight.info
 5. every 20 minutes the uploader tries to upload new logs to dps.report and BFi main server
 6. "Logs list" page displays information about all logs
 7. you can hover a "status" badge to see its description
+8. in addition, you can create a `bfi_uploader_logs` holder on the `C:\` drive to view the error logs (7 days history)
 
 ### How to upgrade to a new version:
 
@@ -82,8 +83,3 @@ Main web server https://gw2bossfight.info
 ### Support:
 
 - Discord: https://discord.gg/EdCcBvMcDJ
-
-### Code formatter with Black
-
-- `pip install -U black`
-- `black app/ celery_scripts/ dj_settings/ help_scripts/`

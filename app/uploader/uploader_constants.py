@@ -1,4 +1,5 @@
 from dj_settings.settings import DEBUG
+from http import HTTPStatus
 
 
 class UploaderConstants:
@@ -14,3 +15,5 @@ class UploaderConstants:
     BFI_UPLOADER_SYNC_URL = f"{BFI_DOMAIN}/api/dps_report/uploader_sync/"
     BFI_UPLOADER_POST_URL = f"{BFI_DOMAIN}/api/dps_report/uploader_post/"
     """ <- URLs """
+
+    DPS_REPORT_REPEAT_STATUS = (HTTPStatus.FORBIDDEN,)
