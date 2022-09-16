@@ -12,3 +12,7 @@ gunicorn
 # pip-compile & pip-sync
 # pip install -U black django-debug-toolbar locust coverage selenium
 # pip install -r requirements.txt --timeout 50
+
+### Code formatter with Black
+# pip install -U black
+# black app/ celery_scripts/ dj_settings/ help_scripts/

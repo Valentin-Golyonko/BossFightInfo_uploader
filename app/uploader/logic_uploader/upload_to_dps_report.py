@@ -32,7 +32,7 @@ class UploadToDpsReport:
         if not is_ok:
             logger.error(
                 f"upload_to_dps_report(): dps.report error;"
-                f" {log_id = }, {response.status_code = }, {rs_data = }"
+                f" {log_id = }, {response.status_code = }, {data = }"
             )
             if response.status_code in UploaderConstants.DPS_REPORT_REPEAT_STATUS:
                 """don't change current status"""
@@ -44,11 +44,11 @@ class UploadToDpsReport:
         else:
             dps_report_name = cls.permalink_to_report_name(data.get("permalink"))
             if dps_report_name is None:
-                dps_report_status = LogsConstants.UPLOAD_STATUS_ERROR
-                dps_report_notify_code = LogsConstants.CANT_UPLOAD
-            else:
-                dps_report_status = LogsConstants.UPLOAD_STATUS_OK
-                dps_report_notify_code = LogsConstants.LOG_UPLOADED
+                """don't change current status"""
+                return
+
+            dps_report_status = LogsConstants.UPLOAD_STATUS_OK
+            dps_report_notify_code = LogsConstants.LOG_UPLOADED
 
         CRUDLocalLog.update_log_after_upload(
             log_id=log_id,
