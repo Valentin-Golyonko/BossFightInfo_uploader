@@ -21,6 +21,7 @@ class CustomUser(AbstractUser):
         blank=True,
         verbose_name="GW2 Account",
     )
+    is_synced = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if self.dude_id == 0:

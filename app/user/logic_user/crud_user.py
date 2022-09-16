@@ -96,3 +96,11 @@ class CRUDUser:
         except Exception as ex:
             logger.error(f"get_uploader_user(): get Ex; {ex = }")
         return None
+
+    @staticmethod
+    def update_sync(user_id: int, is_synced: bool) -> None:
+        try:
+            CustomUser.objects.filter(id=user_id).update(is_synced=is_synced)
+        except Exception as ex:
+            logger.error(f"update_sync(): CustomUser.update Ex; {user_id = }; {ex = }")
+        return None

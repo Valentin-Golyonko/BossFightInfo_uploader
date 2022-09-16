@@ -19,7 +19,7 @@ class UploadFlow:
     @staticmethod
     @time_it
     def upload_local_logs() -> None:
-        is_user_ok, auth_str = CheckUser.check_user()
+        is_user_ok, auth_str, user_id = CheckUser.check_user(upload=True)
         if not is_user_ok:
             return None
 
