@@ -61,7 +61,8 @@ Main web server https://gw2bossfight.info
 5. every 20 minutes the uploader tries to upload new logs to dps.report and BFi main server
 6. "Logs list" page displays information about all logs
 7. you can hover a "status" badge to see its description
-8. in addition, you can create a `bfi_uploader_logs` holder on the `C:\` drive to view the error logs (7 days history)
+8. [for advanced use only!] to see error logs you may add `-v "C:\bfi_uploader_logs:/BossFightInfo_uploader/logs"` on
+   container create, logs will be inside `C:\bfi_uploader_logs`, and DO NOT TOUCH the main_worker.pid file :)
 
 ### How to upgrade to a new version:
 

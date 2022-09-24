@@ -50,9 +50,18 @@ class CRUDLocalLog:
     def list_logs_to_upload(to_dps_report: bool, to_bfi: bool) -> list[dict]:
         try:
             if to_dps_report:
-                return LocalLog.objects.filter(
-                    dps_report_status=LogsConstants.UPLOAD_STATUS_PENDING
-                ).values("id", "file_path")
+                return (
+                    LocalLog.objects.filter(
+                        dps_report_status=LogsConstants.UPLOAD_STATUS_PENDING
+                    )
+                    .order_by(
+                        "file_time",
+                    )
+                    .values(
+                        "id",
+                        "file_path",
+                    )
+                )
             elif to_bfi:
                 return (
                     LocalLog.objects.filter(
@@ -61,6 +70,9 @@ class CRUDLocalLog:
                     )
                     .exclude(
                         dps_report_name="",
+                    )
+                    .order_by(
+                        "file_time",
                     )
                     .values()
                 )

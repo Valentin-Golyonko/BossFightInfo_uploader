@@ -1,15 +1,12 @@
-import os
 from pathlib import Path
 
 from celery.schedules import crontab
-from dotenv import dotenv_values, load_dotenv
+from dotenv import dotenv_values
 
 from app.core.utility_scripts.core_constants import CoreConstants
 
-load_dotenv()
-
-environ_values = dotenv_values(".env_prod")
-environ_values.update(dotenv_values(".env_dev"))
+environ_values = dotenv_values(".env.prod")
+environ_values.update(dotenv_values(".env.dev"))
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
