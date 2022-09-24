@@ -26,7 +26,7 @@ class LogsConstants:
     DPS_REPORT_NAME_LEN = 50
     MIN_LOG_SIZE = 1024
     LOG_AGE_LIMIT_DAYS = 180
-    CURRENT_UPLOAD_LIMIT = 10  # max 10 logs avery 20 min
+    CURRENT_UPLOAD_LIMIT = 15  # max 15 logs avery 20 min
 
     """ LOG_UPLOAD_CODE -> """
     NOT_UPLOADED = 1
