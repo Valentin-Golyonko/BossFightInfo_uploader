@@ -32,7 +32,7 @@ Main web server https://gw2bossfight.info
     - create network [terminal command]: `docker network create --driver bridge bfi-uploader-net`
 4. Start containers:
     - start broker
-      container [terminal command]: `docker run -d --name broker-redis -p 5672:5672 -p 15672:15672 --restart always --network bfi-uploader-net redis:latest`
+      container [terminal command]: `docker run -d --name broker-redis -p 6379:6379 --restart always --network bfi-uploader-net redis:latest`
     - copy following command to any file editor (_it is one-line
       command_): `docker run -d -v "C:\Users\...\arcdps.cbtlogs:/BossFightInfo_uploader/user_arcdps_logs:ro" --name bfi-uploader -p 8001:8000 --restart always --network bfi-uploader-net bequite/boss-fight-info-uploader:latest`
     - replace path value `-> C:\Users\...\arcdps.cbtlogs <-` with YOURS from step 2.3
