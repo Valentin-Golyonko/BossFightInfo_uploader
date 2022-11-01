@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 class UploadToBFi:
     @staticmethod
-    def upload_to_bfi(log_data: dict, log_id: int, auth_str: str) -> None:
+    def upload_to_bfi(log_data: dict, log_id: int, access_token: str) -> None:
         modify_time_iso = ConvertDateTime.dt_to_iso(log_data.get("file_time"))
         if modify_time_iso is None:
             CRUDLocalLog.delete_local_log(log_id)
@@ -25,7 +25,7 @@ class UploadToBFi:
         response = RequestHandler.rq_post(
             url=UploaderConstants.BFI_UPLOADER_POST_URL,
             json_data=log_data,
-            auth_str=auth_str,
+            access_token=access_token,
         )
 
         if response is None:

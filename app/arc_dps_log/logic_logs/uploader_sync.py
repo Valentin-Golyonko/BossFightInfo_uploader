@@ -3,15 +3,18 @@ debug:
     from app.arc_dps_log.logic_logs.uploader_sync import UploaderSync
     UploaderSync.get_data_from_bfi()
 """
+import base64
 import logging
 
 from app.arc_dps_log.logic_logs.crud_local_log import CRUDLocalLog
 from app.arc_dps_log.models import LocalLog
 from app.core.logic_core.request_handler import RequestHandler
+from app.core.utility_scripts.core_constants import CoreConstants
 from app.core.utility_scripts.util_scripts import time_it
 from app.uploader.uploader_constants import UploaderConstants
 from app.user.logic_user.check_user import CheckUser
 from app.user.logic_user.crud_user import CRUDUser
+from app.user.logic_user.user_login import UserLogin
 
 logger = logging.getLogger(__name__)
 
@@ -24,9 +27,20 @@ class UploaderSync:
         if not is_user_ok:
             return None
 
+        auth = base64.b64decode(auth_str).decode("utf-8").split(":")
+        out_data, is_ok = UserLogin.login_to_bfi(
+            {
+                "username": auth[0],
+                "password": auth[1],
+            }
+        )
+        if is_ok != CoreConstants.OK:
+            logger.error(f"recursion_uploader_sync(): login_to_bfi Error")
+            return None
+
         is_sync_ok, results = cls.recursion_uploader_sync(
             url=UploaderConstants.BFI_UPLOADER_SYNC_URL,
-            auth_str=auth_str,
+            access_token=out_data.get("access_token"),
         )
         if not is_sync_ok:
             CRUDUser.update_sync(user_id, is_synced=False)
@@ -68,12 +82,12 @@ class UploaderSync:
 
     @classmethod
     def recursion_uploader_sync(
-        cls, url: str, auth_str: str
+        cls, url: str, access_token: str
     ) -> tuple[bool, list[dict]]:
         if url is None or not url:
             return False, []
 
-        response = RequestHandler.rq_get(url, auth_str)
+        response = RequestHandler.rq_get(url, access_token)
         if response is None:
             logger.error(f"recursion_uploader_sync(): response is None")
             return False, []
@@ -99,7 +113,7 @@ class UploaderSync:
             _next_url = next_url.replace(
                 "http://127.0.0.1:8000", UploaderConstants.BFI_DOMAIN
             )
-            is_sync_ok, results = cls.recursion_uploader_sync(_next_url, auth_str)
+            is_sync_ok, results = cls.recursion_uploader_sync(_next_url, access_token)
             if not is_sync_ok:
                 return False, []
             all_results.extend(results)

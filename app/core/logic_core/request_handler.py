@@ -13,9 +13,9 @@ logger = logging.getLogger(__name__)
 
 class RequestHandler:
     @staticmethod
-    def rq_post(url: str, json_data: dict, auth_str: str = None) -> Response | None:
+    def rq_post(url: str, json_data: dict, access_token: str = None) -> Response | None:
         try:
-            if auth_str is None:
+            if access_token is None:
                 return requests.post(
                     url=url,
                     json=json_data,
@@ -23,7 +23,7 @@ class RequestHandler:
             else:
                 return requests.post(
                     url=url,
-                    headers={"Authorization": f"Basic {auth_str}"},
+                    headers={"Authorization": f"Bearer {access_token}"},
                     json=json_data,
                 )
         except Exception as ex:
@@ -77,14 +77,14 @@ class RequestHandler:
             return None
 
     @staticmethod
-    def rq_get(url: str, auth_str: str = None) -> Response | None:
+    def rq_get(url: str, access_token: str = None) -> Response | None:
         try:
-            if auth_str is None:
+            if access_token is None:
                 return requests.get(url=url)
             else:
                 return requests.get(
                     url=url,
-                    headers={"Authorization": f"Basic {auth_str}"},
+                    headers={"Authorization": f"Bearer {access_token}"},
                 )
         except Exception as ex:
             logger.error(f"rq_get(): requests Ex; {url = }; {ex = }")
