@@ -1,6 +1,5 @@
 import base64
 
-from app.arc_dps_log.tasks import task_uploader_sync
 from app.core.logic_core.request_handler import RequestHandler
 from app.core.utility_scripts.core_constants import CoreConstants
 from app.uploader.uploader_constants import UploaderConstants
@@ -15,28 +14,31 @@ class UserLogin:
         if not auth_data:
             return {}, error_msg
 
-        bfi_user_data, error_msg = cls.user_data_bfi(auth_data)
-        if not bfi_user_data:
+        bfi_user_me, error_msg = cls.user_data_bfi(auth_data)
+        if not bfi_user_me:
             return {}, error_msg
 
-        dude_settings = bfi_user_data.get("data", {}).get("dude_settings", {})
-        dude_id: int = dude_settings.get("id")
+        username: str = bfi_user_me.get("username")
 
-        if (user_obj := CRUDUser.find_dude(dude_id)) is None:
+        if (user_obj := CRUDUser.find_dude(username)) is None:
             if CRUDUser.multiple_users_count() > 0:
                 return {}, CoreConstants.ONLY_ONE_USER
 
             new_user_obj = CRUDUser.create_dude(
-                rq_post, auth_data, dude_settings, dude_id
+                rq_post,
+                auth_data,
+                bfi_user_me,
             )
 
             if new_user_obj is None:
                 return {}, CoreConstants.CREATE_USER_ERROR
         else:
-            new_user_obj = CRUDUser.update_user(user_obj, dude_settings)
+            new_user_obj = CRUDUser.update_user(user_obj, bfi_user_me)
 
-        if not CRUDUser.login_user(request, dude_id):
+        if not CRUDUser.login_user(request):
             return {}, CoreConstants.UPLOADER_LOGIN_FAIL
+
+        from app.arc_dps_log.tasks import task_uploader_sync
 
         task_uploader_sync.s().apply_async()
 
@@ -69,7 +71,7 @@ class UserLogin:
             return {}, rs_data.get("error_msg", CoreConstants.UPLOADER_ERROR)
 
         out_data = {
-            "dude_id": rs_data.get("data", {}).get("dude_id"),
+            "access_token": rs_data.get("data", {}).get("access"),
             "auth_str": base64.b64encode(
                 f"{username}:{password}".encode("utf-8")
             ).decode("utf-8"),
@@ -79,8 +81,8 @@ class UserLogin:
     @staticmethod
     def user_data_bfi(auth_data: dict) -> tuple[dict, str]:
         response = RequestHandler.rq_get(
-            url=f"{UploaderConstants.BFI_DUDES_URL}/{auth_data.get('dude_id')}/",
-            auth_str=auth_data.get("auth_str", ""),
+            url=UploaderConstants.BFI_DUDES_URL,
+            access_token=auth_data.get("access_token", ""),
         )
         if response is None:
             return {}, CoreConstants.CONNECTION_ERROR

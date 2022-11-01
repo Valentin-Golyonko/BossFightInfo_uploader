@@ -16,7 +16,7 @@ celery==5.2.7
     # via
     #   -r requirements.in
     #   django-celery-beat
-certifi==2022.9.14
+certifi==2022.9.24
     # via requests
 charset-normalizer==2.1.1
     # via requests
@@ -34,7 +34,7 @@ click-repl==0.2.0
     # via celery
 deprecated==1.2.13
     # via redis
-django==4.1.2
+django==4.1.3
     # via
     #   -r requirements.in
     #   django-celery-beat
@@ -63,7 +63,7 @@ python-dateutil==2.8.2
     # via python-crontab
 python-dotenv==0.21.0
     # via -r requirements.in
-pytz==2022.2.1
+pytz==2022.6
     # via
     #   celery
     #   django-timezone-field
@@ -77,7 +77,7 @@ six==1.16.0
     #   python-dateutil
 sqlparse==0.4.3
     # via django
-tzdata==2022.2
+tzdata==2022.6
     # via django-celery-beat
 urllib3==1.26.12
     # via requests
