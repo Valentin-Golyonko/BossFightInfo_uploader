@@ -6,5 +6,5 @@ from app.arc_dps_log.tasks import task_uploader_sync
 
 
 def run() -> None:
-    task_uploader_sync.s().apply_async()
+    task_uploader_sync.apply_async()
     return None

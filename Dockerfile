@@ -14,6 +14,6 @@ COPY . .
 
 EXPOSE 8000
 
-RUN chmod +x ./start_django.sh
+RUN chmod +x ./start_django_docker.sh
 
-CMD ["./start_django.sh"]
+CMD ["./start_django_docker.sh"]
