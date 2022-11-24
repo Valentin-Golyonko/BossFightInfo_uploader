@@ -8,6 +8,7 @@ from dj_settings.settings import DEBUG
 
 urlpatterns = [
     path("", include("app.arc_dps_log.urls")),
+    path("", include("app.uploader.urls")),
     path("", include("app.user.urls")),
 ]
 
