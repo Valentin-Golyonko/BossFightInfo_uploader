@@ -8,10 +8,10 @@ python-dotenv
 gunicorn
 
 # pip install -U pip setuptools wheel pip-tools --timeout 50
-# pip-compile & pip-sync
+# pip-compile --resolver=backtracking
+# pip-sync
 # pip install -U black ipython django-debug-toolbar locust coverage
 # pip install -r requirements.txt --timeout 50
 
 ### Code formatter with Black
-# pip install -U black
 # black app/ celery_scripts/ dj_settings/ help_scripts/

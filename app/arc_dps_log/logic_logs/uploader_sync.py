@@ -2,6 +2,8 @@
 debug:
     from app.arc_dps_log.logic_logs.uploader_sync import UploaderSync
     UploaderSync.get_data_from_bfi()
+run:
+    python manage.py runscript app.arc_dps_log.logic_logs.uploader_sync
 """
 import base64
 import logging
@@ -17,6 +19,10 @@ from app.user.logic_user.crud_user import CRUDUser
 from app.user.logic_user.user_login import UserLogin
 
 logger = logging.getLogger(__name__)
+
+
+def run():
+    UploaderSync.get_data_from_bfi()
 
 
 class UploaderSync:

@@ -4,16 +4,19 @@ rm ./logs/gunicorn.log
 touch ./logs/gunicorn.log
 echo "--- 1. Cleanup - Done ---"
 
+python -m venv /venv
+. ./venv/bin/activate
+pip install -U pip setuptools wheel pip-tools --timeout 50
+pip install -r requirements.in --timeout 50
+echo "--- 2. Setup - Done ---"
+
 python manage.py migrate
-echo "--- 2. DB update - Done ---"
+echo "--- 3. DB update - Done ---"
 
 python manage.py collectstatic --no-input
-echo "--- 3. Collect static files - Done ---"
+echo "--- 4. Collect static files - Done ---"
 
-python manage.py runscript celery_scripts.restart_workers
-echo "--- 4. Restart workers - Done ---"
-
-python manage.py runscript help_scripts.on_uploader_start
+python manage.py runscript app.arc_dps_log.logic_logs.uploader_sync
 echo "--- 5. Run on-start scripts - Done ---"
 
 gunicorn -c ./dj_settings/gunicorn_config.py

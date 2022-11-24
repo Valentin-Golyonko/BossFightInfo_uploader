@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-    <h3 class="text-center mb-4">Logs list | {{ page_obj.paginator.count }}</h3>
+    <h3 class="text-center mb-4">
+        <span>Logs list</span>
+        <span class="mx-2">|</span>
+        <span>Total: {{ page_obj.paginator.count | floatformat:'g' }}</span>
+    </h3>
 
-    <table class="table table-hover mb-4">
+    <table class="table table-dark table-hover mb-4">
         <thead>
         <tr>
             <th scope="col">id</th>
@@ -31,7 +35,7 @@
                 <td>
                     <div class="text-start">
                         {% if log_data.dps_report_name %}
-                            <a href="https://dps.report/{{ log_data.dps_report_name }}"
+                            <a href="https://dps.report/{{ log_data.dps_report_name }}" class="text_c22"
                                target="_blank">{{ log_data.dps_report_name }}</a>
                         {% else %}—{% endif %}
                     </div>
@@ -46,7 +50,7 @@
                     <div class="text-start">
                         {% if log_data.bfi_fight_id %}
                             <a href="https://gw2bossfight.info/api/encounter/fights/{{ log_data.bfi_fight_id }}/"
-                               target="_blank">BFi log</a>
+                               class="text_c22" target="_blank">BFi log</a>
                         {% else %}—{% endif %}
                     </div>
                 </td>
@@ -66,21 +70,22 @@
             <ul class="pagination justify-content-center">
                 {% if page_obj.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page=1">First</a>
+                        <a class="page-link text-bg-dark" href="?page=1">First</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        <a class="page-link text-bg-dark" href="?page={{ page_obj.previous_page_number }}">Previous</a>
                     </li>
                 {% endif %}
                 <li class="page-item">
-                    <a class="page-link current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
+                    <a class="page-link current text-bg-dark">Page {{ page_obj.number }}
+                        of {{ page_obj.paginator.num_pages }}</a>
                 </li>
                 {% if page_obj.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                        <a class="page-link text-bg-dark" href="?page={{ page_obj.next_page_number }}">Next</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                        <a class="page-link text-bg-dark" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
                     </li>
                 {% endif %}
             </ul>

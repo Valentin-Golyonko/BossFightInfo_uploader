@@ -40,7 +40,7 @@ class UserLogin:
 
         from app.arc_dps_log.tasks import task_uploader_sync
 
-        task_uploader_sync.s().apply_async()
+        task_uploader_sync.apply_async()
 
         out_data = {
             "username": new_user_obj.username,
