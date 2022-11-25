@@ -1,6 +1,7 @@
 """
 debug:
     from app.uploader.logic_uploader.upload_flow import UploadFlow
+
     UploadFlow.upload_local_logs()
 """
 import base64
@@ -55,6 +56,51 @@ class UploadFlow:
             UploadToBFi.upload_to_bfi(
                 log_data=log_data_2,
                 log_id=log_data_2.get("id"),
+                access_token=out_data.get("access_token"),
+            )
+
+        return None
+
+    @staticmethod
+    @time_it
+    def upload_one_log(log_id: int) -> None:
+        is_user_ok, auth_str, user_id = CheckUser.check_user(upload=True)
+        if not is_user_ok:
+            return None
+
+        auth = base64.b64decode(auth_str).decode("utf-8").split(":")
+        out_data, is_ok = UserLogin.login_to_bfi(
+            {
+                "username": auth[0],
+                "password": auth[1],
+            }
+        )
+        if is_ok != CoreConstants.OK:
+            logger.error(f"upload_one_log(): login_to_bfi Error")
+            return None
+
+        log_data = CRUDLocalLog.get_local_log(log_id)
+
+        if log_data is None or not log_data:
+            return None
+
+        dps_report_pending = (
+            log_data.get("dps_report_status") == LogsConstants.UPLOAD_STATUS_PENDING
+        )
+        if dps_report_pending:
+            UploadToDpsReport.upload_to_dps_report(
+                file_path=log_data.get("file_path"),
+                log_id=log_data.get("id"),
+            )
+
+        dps_report_ok = (
+            log_data.get("dps_report_status") == LogsConstants.UPLOAD_STATUS_OK
+        )
+        bfi_pending = log_data.get("bfi_status") == LogsConstants.UPLOAD_STATUS_PENDING
+        if dps_report_ok and bfi_pending:
+            UploadToBFi.upload_to_bfi(
+                log_data=log_data,
+                log_id=log_data.get("id"),
                 access_token=out_data.get("access_token"),
             )
 

@@ -15,6 +15,7 @@
             <th scope="col">dps.report log</th>
             <th scope="col">BFi status</th>
             <th scope="col">BFi log</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -49,10 +50,15 @@
                 <td>
                     <div class="text-start">
                         {% if log_data.bfi_fight_id %}
-                            <a href="https://gw2bossfight.info/api/encounter/fights/{{ log_data.bfi_fight_id }}/"
+                            <a href="https://gw2bossfight.info/fight/{{ log_data.bfi_fight_id }}"
                                class="text_c22" target="_blank">BFi log</a>
                         {% else %}—{% endif %}
                     </div>
+                </td>
+                <td class="align-middle text-center">
+                    <form method="get" action="{% url 'uploader:upload_log' id=log_data.id %}">
+                        <button class="btn btn-outline-primary text_c22" type="submit">Upload</button>
+                    </form>
                 </td>
             </tr>
         {% empty %}

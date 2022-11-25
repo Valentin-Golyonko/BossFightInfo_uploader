@@ -112,3 +112,11 @@ class CRUDLocalLog:
         except Exception as ex:
             logger.error(f"delete_local_log(): LocalLog.delete Ex; {log_id = } {ex = }")
         return None
+
+    @staticmethod
+    def get_local_log(log_id: int) -> dict | None:
+        try:
+            return LocalLog.objects.filter(id=log_id).values().first()
+        except Exception as ex:
+            logger.error(f"get_local_log(): LocalLog.get Ex; {log_id = } {ex = }")
+        return None
